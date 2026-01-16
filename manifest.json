@@ -9,18 +9,14 @@
         {
             "src": "Logo.jpg",
             "type": "image/jpg",
-            "sizes": "750x750"
+            "sizes": "512x512"
         },
         {
             "src": "Logo.jpg",
             "type": "image/jpg",
             "sizes": "192x192"
-        },
-        {
-            "src": "Logo.jpg",
-            "type": "image/jpg",
-            "sizes": "512x512"
         }
+       
     ],
     "splash_pages": [
         {
@@ -29,4 +25,5 @@
             "theme_color": "#FFD700"
         }
     ]
+
 }

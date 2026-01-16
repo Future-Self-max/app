@@ -1,0 +1,32 @@
+{
+    "name": "DeepShafts",
+    "short_name": "DeepShafts",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#FFD700",
+    "icons": [
+        {
+            "src": "Logo.jpg",
+            "type": "image/jpg",
+            "sizes": "750x750"
+        },
+        {
+            "src": "Logo.jpg",
+            "type": "image/jpg",
+            "sizes": "192x192"
+        },
+        {
+            "src": "Logo.jpg",
+            "type": "image/jpg",
+            "sizes": "512x512"
+        }
+    ],
+    "splash_pages": [
+        {
+            "src": "Logo.jpg",
+            "background_color": "#000000",
+            "theme_color": "#FFD700"
+        }
+    ]
+}

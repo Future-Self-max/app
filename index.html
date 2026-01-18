@@ -13,7 +13,7 @@
     <!-- Für iOS (falls du auch iPhone testen willst): -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="apple-touch-icon" href="Logo-192.png"> <!-- Dein Icon in 192×192 -->
+    <link rel="apple-touch-icon" href="Logo.jpg"> <!-- Dein Icon in 192×192 -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Roboto:wght@700&display=swap');
 
@@ -153,6 +153,60 @@
             --glass-border: rgba(255, 255, 255, 0.2);
             --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
             --glass-blur: blur(12px);
+
+            /* GOLD & GEM DESIGN */
+            --gold-gem-gradient: repeating-linear-gradient(45deg, #FFD54F, #FFD54F 5px, #FFC107 5px, #FFC107 10px, #00E5FF 10px, #00E5FF 12px);
+            --gold-gem-glow: 0 0 15px rgba(255, 213, 79, 0.8), 0 0 5px rgba(0, 229, 255, 0.4);
+        }
+
+        /* SUPER SHINE GLINT EFFECT */
+        .glint-effect {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glint-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            animation: glint-sweep 3s infinite linear;
+        }
+
+        @keyframes glint-sweep {
+            0% {
+                left: -150%;
+            }
+
+            30% {
+                left: 150%;
+            }
+
+            100% {
+                left: 150%;
+            }
+        }
+
+        /* SVG SPARKLE ANIMATION */
+        @keyframes sparkle-flicker {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(0.8) rotate(0deg);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2) rotate(45deg);
+            }
+        }
+
+        .svg-sparkle {
+            animation: sparkle-flicker 1.5s infinite ease-in-out;
         }
 
         * {
@@ -160,6 +214,62 @@
             user-select: none;
             -webkit-user-drag: none;
             touch-action: none;
+        }
+
+        /* --- WEATHER PARTICLES --- */
+        .weather-particle {
+            position: absolute;
+            pointer-events: none;
+            z-index: 100;
+            /* Above ground, below HUD */
+        }
+
+        .raindrop {
+            width: 2px;
+            height: 15px;
+            background: rgba(174, 194, 224, 0.6);
+            animation: fall-rain linear infinite;
+        }
+
+        .snowflake {
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: fall-snow linear infinite;
+        }
+
+        @keyframes fall-rain {
+            0% {
+                transform: translateY(-100px) rotate(15deg);
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(15deg);
+            }
+        }
+
+        @keyframes fall-snow {
+            0% {
+                transform: translateY(-50px) translateX(0);
+            }
+
+            25% {
+                transform: translateY(25vh) translateX(20px);
+            }
+
+            50% {
+                transform: translateY(50vh) translateX(-20px);
+            }
+
+            75% {
+                transform: translateY(75vh) translateX(20px);
+            }
+
+            100% {
+                transform: translateY(110vh) translateX(0);
+            }
         }
 
         body {
@@ -245,15 +355,42 @@
             width: 40px;
             height: 40px;
             background: radial-gradient(circle at 30% 30%, #FFD54F, #FF6F00);
-            border-radius: 50%;
+            border-radius: 45% 55% 50% 50% / 50% 50% 50% 50%;
+            /* Organic nugget shape */
             border: 2px solid #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 15px rgba(255, 111, 0, 0.8), 0 0 25px rgba(255, 213, 79, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 22px;
             color: #FFF8E1;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+            animation: nuggetPulse 3s infinite ease-in-out;
+            position: relative;
+        }
+
+        .icon-coin-hud::after {
+            content: '✦';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 14px;
+            color: white;
+            animation: sparkle-flicker 1s infinite alternate;
+        }
+
+        @keyframes nuggetPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                filter: brightness(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+                filter: brightness(1.2);
+            }
         }
 
         .icon-supercash {
@@ -2090,6 +2227,32 @@
             }
         }
 
+        /* WAREHOUSE CART WOBBLE */
+        .cart-wobble {
+            animation: cartWobble 0.4s infinite ease-in-out;
+        }
+
+        @keyframes cartWobble {
+
+            0%,
+            100% {
+                transform: translate(0, 35px) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(0, 34px) rotate(1deg);
+            }
+
+            75% {
+                transform: translate(0, 36px) rotate(-1deg);
+            }
+        }
+
+        .pushing-lean {
+            transform: rotate(-15deg);
+            transform-origin: bottom center;
+        }
+
         /* SITTING ANIMATION (Resting) */
         .anim-sit .torso {
             transform: translateY(15px) rotate(-10deg) !important;
@@ -2404,22 +2567,44 @@
 
         /* FLYING COINS */
         .flying-coin {
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            background: radial-gradient(circle at 30% 30%, #FFD54F, #FF6F00);
-            border: 2px solid #FFF8E1;
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
-            z-index: 9999;
+            position: fixed;
+            width: 18px;
+            height: 18px;
+            background: radial-gradient(circle at 30% 30%, #FFF59D, #FFD54F, #FF6F00);
+            border: 2px solid #fff;
+            border-radius: 40% 60% 50% 50%;
+            z-index: 10000;
             pointer-events: none;
+            box-shadow: 0 0 20px rgba(255, 213, 79, 1), 0 0 40px rgba(255, 111, 0, 0.5);
+            filter: brightness(1.2);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 14px;
-            color: #B00;
-            /* Subtle text if needed, or just graphic */
-            animation: coinSpin 0.5s infinite linear;
+        }
+
+        .flying-coin::after {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 60%);
+            opacity: 0.5;
+            animation: sparklePulse 0.4s infinite alternate;
+        }
+
+        @keyframes sparklePulse {
+            from {
+                opacity: 0.2;
+                transform: scale(0.8);
+            }
+
+            to {
+                opacity: 0.6;
+                transform: scale(1.1);
+            }
         }
 
         /* MINING SPARKS */
@@ -2482,10 +2667,10 @@
         }
 
         /* LIGHT SOURCES (Only visible when overlay opacity > 0) */
-        /* Use mix-blend-mode or simple opacity tricks. 
+        /* Use mix-blend-mode or simple opacity tricks.
            Since overlay is multiply, anything below is dark.
            To "light up" something below, we need to cut a hole in the overlay (hard with many moving lights).
-           
+
            Alt Approach: Lights are transparent divs with a radial gradient GLOW that adds color/light ON TOP of the dark overlay.
            Z-Index: Overlay = 100. Lights = 101.
            Light Blend Mode: screen or overlay.
@@ -2643,6 +2828,86 @@
 
             100% {
                 transform: translateX(2000px) translateY(0) scale(0.6);
+            }
+        }
+
+        /* --- HELICOPTER STYLES --- */
+        .helicopter-entity {
+            position: absolute;
+            width: 120px;
+            height: 60px;
+            z-index: 1000;
+            cursor: pointer;
+            pointer-events: auto;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+            transition: transform 0.1s linear;
+        }
+
+        .helicopter-entity:hover {
+            filter: drop-shadow(0 8px 20px rgba(255, 213, 79, 0.4)) brightness(1.1);
+        }
+
+        .heli-rotor {
+            transform-origin: 60px 10px;
+            animation: heliSpin 0.1s linear infinite;
+        }
+
+        .heli-tail-rotor {
+            transform-origin: 10px 30px;
+            animation: heliSpin 0.15s linear infinite;
+        }
+
+        @keyframes heliMainSpin {
+            from {
+                transform: rotateY(0deg);
+            }
+
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+
+        @keyframes heliTailSpin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .heli-beacon {
+            animation: heliBeaconPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes heliBeaconPulse {
+
+            0%,
+            100% {
+                opacity: 0.4;
+                filter: brightness(1);
+            }
+
+            50% {
+                opacity: 1;
+                filter: brightness(1.5) drop-shadow(0 0 5px #ff1744);
+            }
+        }
+
+        .heli-pulse {
+            animation: heliPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes heliPulse {
+
+            0%,
+            100% {
+                filter: brightness(1);
+            }
+
+            50% {
+                filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
             }
         }
 
@@ -3121,8 +3386,6 @@
                          Wrapper top starts at 0. Grass is at 180px in stage (absolute). wrapper is relative.
                          If we put wrapper inside stage, wrapper starts at 0,0.
                          Grass is absolute in stage.
-                         Let's put grass in wrapper? No, grass should be full width.
-                         
                          Wait, if grid starts at 180px (top of dirt), then Warehouse sitting ON grass (180px) should be positioned relative to that?
                          Standard coordinates:
                          Grid top: 180px.
@@ -3221,10 +3484,10 @@
                     </div>
 
                     <!-- Dropoff Zone (Now right of centered elevator at 1400px world) -->
-                    <div
-                        style="position: absolute; left: 800px; top: 180px; width: 70px; height: 35px; background: #37474F; z-index: 6; border: 3px solid #263238; border-bottom:0; display:flex; flex-direction:column-reverse; align-items:center; box-shadow: 0 5px 10px rgba(0,0,0,0.4);">
+                    <div style="position: absolute; left: 800px; top: 180px; width: 70px; height: 35px; background: #37474F; z-index: 6; border: 3px solid #263238; border-bottom:0; display:flex; flex-direction:column-reverse; align-items:center; box-shadow: 0 5px 10px rgba(0,0,0,0.4); overflow:hidden;"
+                        class="glint-effect">
                         <div id="depot-fill"
-                            style="width:100%; background:repeating-linear-gradient(45deg, #FFD54F, #FFD54F 5px, #FFC107 5px, #FFC107 10px); opacity:1; height:0%; transition:height 0.2s;">
+                            style="width:100%; background:var(--gold-gem-gradient); opacity:1; height:0%; transition:height 0.2s; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);">
                         </div>
                     </div>
 
@@ -3458,7 +3721,9 @@
                                         </g>
                                     </g>
                                 </svg>
-                                <div class="elevator-fill" id="elevator-fill"></div>
+                                <div class="elevator-fill glint-effect" id="elevator-fill"
+                                    style="background: var(--gold-gem-gradient); box-shadow: inset 0 0 15px rgba(0,0,0,0.4);">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -3470,6 +3735,75 @@
 
     <script>
         // ... (SVG Assets Same) ...
+        function getHelicopterSVG() {
+            return `<svg width="140" height="70" viewBox="0 0 140 70" style="overflow:visible;">
+                <defs>
+                    <linearGradient id="heliBodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#37474F" />
+                        <stop offset="50%" style="stop-color:#263238" />
+                        <stop offset="100%" style="stop-color:#102027" />
+                    </linearGradient>
+                    <linearGradient id="heliCockpitGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#81D4FA" />
+                        <stop offset="100%" style="stop-color:#0288D1" />
+                    </linearGradient>
+                </defs>
+                
+                <!-- Tail Boom -->
+                <path d="M15 30 L80 30 L85 45 L20 45 Z" fill="#263238" />
+                <rect x="10" y="25" width="10" height="25" fill="#1B262C" rx="2" /> <!-- Tail Fin -->
+                
+                <!-- Tail Rotor -->
+                <g transform="translate(12, 30)">
+                    <g class="heli-rotor-tail">
+                        <rect x="-10" y="-1" width="20" height="2" fill="#90A4AE" rx="1" />
+                        <rect x="-1" y="-10" width="2" height="20" fill="#90A4AE" rx="1" />
+                        <circle cx="0" cy="0" r="3" fill="#37474F" />
+                    </g>
+                </g>
+
+                <!-- Small Stabilizer -->
+                <rect x="30" y="28" width="15" height="4" fill="#37474F" rx="1" />
+
+                <!-- Main Body -->
+                <path d="M50 20 Q130 15 130 45 Q130 65 85 65 Q50 65 50 45 Z" fill="url(#heliBodyGrad)" stroke="#102027" stroke-width="1.5" />
+                
+                <!-- Cockpit Glass -->
+                <path d="M90 22 Q125 22 125 45 L90 45 Z" fill="url(#heliCockpitGrad)" opacity="0.7" />
+                <path d="M100 25 L120 40" stroke="white" stroke-width="1" opacity="0.3" stroke-linecap="round" /> <!-- Reflection -->
+                
+                <!-- Skids -->
+                <g stroke="#1B262C" stroke-width="4" stroke-linecap="round">
+                    <line x1="65" y1="65" x2="60" y2="70" />
+                    <line x1="110" y1="65" x2="115" y2="70" />
+                    <path d="M50 72 L125 72 L130 68" fill="none" stroke-width="5" />
+                </g>
+                
+                <!-- Top Engine Intake / Cowling -->
+                <path d="M75 18 L105 18 L100 25 L80 25 Z" fill="#1B262C" />
+
+                <!-- Main Rotor Shaft -->
+                <rect x="88" y="10" width="4" height="10" fill="#37474F" />
+                
+                <!-- Main Rotor (4 Blades) -->
+                <g transform="translate(90, 10)">
+                    <g class="heli-rotor-main">
+                        <rect x="-60" y="-2" width="120" height="4" fill="#90A4AE" rx="2" opacity="0.8" />
+                        <rect x="-2" y="-60" width="4" height="120" fill="#90A4AE" rx="2" opacity="0.3" /> <!-- Blurred vertical blades -->
+                        <circle cx="0" cy="0" r="6" fill="#37474F" />
+                    </g>
+                </g>
+
+                <!-- Navigation Lights -->
+                <circle class="heli-beacon" cx="90" cy="18" r="4" fill="#ff1744" /> <!-- Red Beacon -->
+                <circle cx="128" cy="45" r="2" fill="#00E676" /> <!-- Green Nav Light -->
+                
+                <!-- Detail Lines -->
+                <line x1="60" y1="45" x2="120" y2="45" stroke="rgba(255,255,255,0.1)" stroke-width="1" />
+                <rect x="85" y="55" width="25" height="3" fill="#ff1744" rx="1.5" opacity="0.8" /> <!-- Decal -->
+            </svg>`;
+        }
+
         function getMinerSVG() {
             return `<svg width="80" height="80" viewBox="0 0 80 80" style="overflow:visible;">
             <g class="character-group">
@@ -3553,23 +3887,123 @@
                              <!-- Sack Body -->
                              <path d="M-10 0 Q-15 15 -5 25 Q5 30 15 20 Q20 5 10 -5 Z" fill="#795548" stroke="#5D4037" stroke-width="1"/>
                              <path d="M-5 5 Q5 15 10 0" fill="none" stroke="#5D4037" stroke-width="1" opacity="0.5"/>
+                             <!-- Precious Contents Peeking Out -->
+                             <circle cx="2" cy="-2" r="3" fill="#FFD54F" stroke="#FF6F00" stroke-width="0.5" />
+                             <!-- Sparkle -->
+                             <path class="svg-sparkle" d="M2 -6 L3 -10 L4 -6 L8 -5 L4 -4 L3 0 L2 -4 L-2 -5 Z" fill="white" transform="scale(0.5) translate(4, -12)"/>
+                             <path d="M-3 -4 L0 -8 L3 -4 Z" fill="#00E5FF" opacity="0.9" />
+                             <circle cx="8" cy="-1" r="2.5" fill="#FFD54F" stroke="#FF6F00" stroke-width="0.5" />
                         </g>
                     </g>
                 </g>
             </g>
             </svg>`;
         }
-        function getCartSVG() { return `<svg width="120" height="70" viewBox="0 0 120 70" style="overflow:visible;"><g class="character-group"><g class="guy" transform="translate(70, 0)"> <g class="leg-l" transform-origin="15 45"> <rect x="10" y="45" width="6" height="18" fill="#37474F" rx="2"/></g><g class="leg-r" transform-origin="15 45"> <rect x="20" y="45" width="6" height="18" fill="#37474F" rx="2"/></g><g class="torso"><rect x="10" y="28" width="16" height="20" fill="#ECEFF1" rx="2"/><circle cx="18" cy="20" r="9" fill="#FFCC80"/><path d="M10 16 Q18 6 26 16" fill="#455A64"/> <g class="arm-r" transform-origin="18 30" transform="rotate(-30)"> <rect x="20" y="30" width="6" height="16" fill="#ECEFF1" rx="2"/></g></g></g><g class="cart" transform="translate(0, 35)"><rect x="10" y="0" width="50" height="30" fill="#5D4037" stroke="#3E2723" stroke-width="3" rx="2"/><circle cx="20" cy="30" r="8" fill="#212121" stroke="#9E9E9E" stroke-width="2"/> <circle cx="50" cy="30" r="8" fill="#212121" stroke="#9E9E9E" stroke-width="2"/> <path d="M60 5 L80 15" stroke="#795548" stroke-width="4"/> <path class="ore-pile" d="M15 5 Q35 -20 55 5 Z" fill="#FFC107" stroke="#FF6F00" stroke-width="1" style="transform: scaleY(0); transform-origin: bottom; transition: transform 0.2s;"/></g></g></svg>`; }
+        function getCartSVG() {
+            return `<svg width="140" height="90" viewBox="0 0 140 90" style="overflow:visible;">
+            <defs>
+                <linearGradient id="cartMetal" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:#78909C" />
+                    <stop offset="50%" style="stop-color:#455A64" />
+                    <stop offset="100%" style="stop-color:#263238" />
+                </linearGradient>
+                <linearGradient id="gemGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#FFD54F" />
+                    <stop offset="50%" style="stop-color:#FF6F00" />
+                    <stop offset="100%" style="stop-color:#00B0FF" />
+                </linearGradient>
+            </defs>
+            <g class="character-group">
+                <!-- THE PUSHER (Guy) -->
+                <g class="guy pushing-lean" transform="translate(85, -2)">
+                    <g class="leg-l" transform-origin="15 50">
+                        <rect x="10" y="50" width="7" height="20" fill="#263238" rx="2"/>
+                        <rect x="8" y="68" width="12" height="6" fill="#111" rx="1"/>
+                    </g>
+                    <g class="leg-r" transform-origin="15 50">
+                        <rect x="22" y="50" width="7" height="20" fill="#263238" rx="2"/>
+                        <rect x="20" y="68" width="12" height="6" fill="#111" rx="1"/>
+                    </g>
+                    <g class="torso">
+                        <rect x="10" y="25" width="22" height="28" fill="#FF9800" rx="4"/> <!-- Orange Vest -->
+                        <rect x="10" y="32" width="22" height="4" fill="#E0E0E0" opacity="0.6"/> <!-- Reflective Stripe -->
+                        <rect x="10" y="42" width="22" height="4" fill="#E0E0E0" opacity="0.6"/> <!-- Reflective Stripe -->
+                        
+                        <!-- Head -->
+                        <g class="head" transform="translate(4, -2)">
+                            <circle cx="15" cy="18" r="10" fill="#FFCC80"/>
+                            <!-- Beard -->
+                            <path d="M7 20 Q15 28 23 20" fill="#3E2723" opacity="0.3"/>
+                            <!-- Helmet -->
+                            <path d="M5 16 Q15 2 25 16" fill="#FFEB3B" stroke="#FBC02D" stroke-width="2"/>
+                            <rect x="3" y="15" width="24" height="3" fill="#F9A825" rx="1"/>
+                            <!-- Face -->
+                            <circle cx="12" cy="19" r="1.5" fill="#212121"/>
+                            <circle cx="18" cy="19" r="1.5" fill="#212121"/>
+                        </g>
+
+                        <!-- Arms (Pushing Position) -->
+                        <g class="arm-r" transform-origin="15 35" transform="rotate(-60)">
+                            <rect x="18" y="30" width="7" height="22" fill="#FF9800" rx="3"/>
+                            <circle cx="21.5" cy="52" r="5" fill="#FFCC80"/>
+                        </g>
+                    </g>
+                </g>
+
+                <!-- THE CART (Reinforced) -->
+                <g class="cart cart-wobble" transform="translate(0, 35)">
+                    <!-- Structural Beams -->
+                    <rect x="5" y="5" width="70" height="32" fill="#37474F" rx="2"/>
+                    <!-- Main Body -->
+                    <rect x="10" y="0" width="60" height="30" fill="url(#cartMetal)" stroke="#192024" stroke-width="2" rx="1"/>
+                    
+                    <!-- Rivets -->
+                    <circle cx="15" cy="5" r="1.5" fill="#B0BEC5" opacity="0.8"/>
+                    <circle cx="15" cy="25" r="1.5" fill="#B0BEC5" opacity="0.8"/>
+                    <circle cx="65" cy="5" r="1.5" fill="#B0BEC5" opacity="0.8"/>
+                    <circle cx="65" cy="25" r="1.5" fill="#B0BEC5" opacity="0.8"/>
+                    <circle cx="40" cy="15" r="1.5" fill="#B0BEC5" opacity="0.5"/>
+
+                    <!-- Industrial Wheels -->
+                    <g class="wheel-front">
+                        <circle cx="20" cy="32" r="10" fill="#212121" stroke="#455A64" stroke-width="3"/>
+                        <circle cx="20" cy="32" r="3" fill="#9E9E9E"/>
+                    </g>
+                    <g class="wheel-back">
+                        <circle cx="60" cy="32" r="10" fill="#212121" stroke="#455A64" stroke-width="3"/>
+                        <circle cx="60" cy="32" r="3" fill="#9E9E9E"/>
+                    </g>
+
+                    <!-- Connection Handle -->
+                    <rect x="70" y="10" width="20" height="6" fill="#5D4037" rx="2"/>
+
+                        <!-- THE CARGO (Gem Pile) -->
+                        <g class="ore-pile" style="transform: scaleY(0); transform-origin: bottom; transition: transform 0.2s;">
+                            <path d="M15 5 Q40 -25 65 5 Z" fill="url(#gemGoldGrad)" stroke="#E65100" stroke-width="1"/>
+                            <!-- Sparkles -->
+                            <path class="svg-sparkle" d="M30 -5 L32 -10 L34 -5 L39 -3 L34 -1 L32 4 L30 -1 L25 -3 Z" fill="white" style="animation-delay: 0s;"/>
+                            <path class="svg-sparkle" d="M50 -10 L51 -14 L52 -10 L56 -9 L52 -8 L51 -4 L50 -8 L46 -9 Z" fill="white" style="animation-delay: 0.5s;"/>
+                            <!-- Gem Details -->
+                            <path d="M30 -5 L35 -12 L40 -5 Z" fill="#FFF" opacity="0.6">
+                            <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+                        </path>
+                        <circle cx="50" cy="-2" r="3" fill="#FFEB3B" opacity="0.8"/>
+                        <circle cx="25" cy="2" r="2" fill="#00E5FF" opacity="0.8"/>
+                    </g>
+                </g>
+            </g>
+            </svg>`;
+        }
 
         const $ = s => document.querySelector(s);
         const fmt = n => { if (typeof n !== 'number' || isNaN(n)) return "0"; if (n < 1000) return Math.floor(n); const s = ["", "k", "m", "b", "t", "aa"]; const i = Math.floor(Math.log10(n) / 3); return (n / Math.pow(1000, i)).toFixed(1) + (s[i] || ""); };
-        const CFG = { shaftH: 160, shaftGap: 20, baseCostShaft: 100, baseCostEle: 50, baseCostWH: 100 };
+        const CFG = { shaftH: 160, shaftGap: 20, baseCostShaft: 500, baseCostEle: 50, baseCostWH: 100 };
 
         /* --- MANAGER SYSTEM LOGIC --- */
         const MANAGERS = {
             JUNIOR: { name: 'Junior', cost: 500, type: 'cash', dur: 60, cool: 300, color: '#B0BEC5', mult: 2.0 },
-            SENIOR: { name: 'Senior', cost: 5000, type: 'cash', dur: 120, cool: 600, color: '#FFD54F', mult: 4.0 }, // Changed to CASH
-            EXECUTIVE: { name: 'Executive', cost: 200, type: 'super', dur: 300, cool: 900, color: '#F44336', mult: 10.0 } // 5m active, 15m cool, 10x Speed!
+            SENIOR: { name: 'Senior', cost: 5000, type: 'cash', dur: 120, cool: 600, color: '#FFD54F', mult: 4.0 },
+            EXECUTIVE: { name: 'Executive', cost: 200, type: 'super', dur: 300, cool: 900, color: '#F44336', mult: 10.0 }
         };
 
         const WORLDS = [
@@ -3652,6 +4086,7 @@
                 this.timer = 0;
                 this.el = null; // View element
                 this.openHireCb = null; // Callback for swap button
+                this.stateChangeCb = null; // Callback for activation/deactivation
             }
             createUI(parent, coordsClass) {
                 this.el = document.createElement('div');
@@ -3681,8 +4116,9 @@
             removeUI() {
                 if (this.el) this.el.remove();
             }
-            // Add setter for callback
+            // Add setter for callbacks
             setHireCallback(cb) { this.openHireCb = cb; }
+            setStateChangeCallback(cb) { this.stateChangeCb = cb; }
 
             update(dt) {
                 if (this.state === 'ACTIVE') {
@@ -3692,6 +4128,7 @@
                         this.timer = this.stats.cool;
                         this.el.classList.remove('manager-active-glow');
                         this.updateUI();
+                        if (this.stateChangeCb) this.stateChangeCb('COOLDOWN');
                     }
                 } else if (this.state === 'COOLDOWN') {
                     const resCoolMult = (typeof game !== 'undefined' && game.research) ? game.research.multipliers.coolDown : 1;
@@ -3711,6 +4148,7 @@
                 this.timer = this.stats.dur;
                 this.el.classList.add('manager-active-glow');
                 this.updateUI();
+                if (this.stateChangeCb) this.stateChangeCb('ACTIVE');
                 game.createFloatText("ACTIVATE!", this.el.getBoundingClientRect().left - 100, this.el.getBoundingClientRect().top); // Rough check
             }
             updateUI() {
@@ -3804,7 +4242,7 @@
                 const targetRockX = baseRockX + offset;
 
                 // VISUAL STATE MANAGEMENT
-                let carryingSack = (this.state !== 'MINING');
+                const carryingSack = (this.state !== 'MINING');
 
                 if (carryingSack) {
                     this.el.classList.add('miner-carrying-sack');
@@ -3821,6 +4259,7 @@
                         const reachRock = this.parent.classList.contains('right-side') ? (this.x > targetRockX + 20) : (this.x < targetRockX - 20);
 
                         if (reachRock) {
+                            // Fixed visual speed for miners - no management bonus to speed!
                             this.x += (this.parent.classList.contains('right-side') ? -1 : 1) * this.stats.speed * dt;
                         }
                         else {
@@ -3912,7 +4351,15 @@
                     this.droppedGear.innerHTML = `<svg width="40" height="40" viewBox="0 0 40 40" style="overflow:visible"><g transform="translate(10,25) rotate(-45)"><rect x="-2" y="-15" width="4" height="30" fill="#8D6E63" rx="1"/><path d="M-15 0 Q0 -10 15 0 L17 -5 Q0 -20 -17 -5 Z" fill="#CFD8DC" stroke="#546E7A" stroke-width="1"/></g></svg>`;
                 } else {
                     // Sack sitting on ground
-                    this.droppedGear.innerHTML = `<svg width="40" height="40" viewBox="0 0 40 40" style="overflow:visible"><g transform="translate(5,20)"><path d="M0 10 Q-5 25 5 35 Q15 40 25 30 Q30 15 20 5 Z" fill="#795548" stroke="#5D4037" stroke-width="1"/><path d="M5 15 Q15 25 20 10" fill="none" stroke="#5D4037" stroke-width="1" opacity="0.5"/></g></svg>`;
+                    this.droppedGear.innerHTML = `<svg width="40" height="40" viewBox="0 0 40 40" style="overflow:visible">
+                        <g transform="translate(5,20)">
+                            <path d="M0 10 Q-5 25 5 35 Q15 40 25 30 Q30 15 20 5 Z" fill="#795548" stroke="#5D4037" stroke-width="1"/>
+                            <path d="M5 15 Q15 25 20 10" fill="none" stroke="#5D4037" stroke-width="1" opacity="0.5"/>
+                            <!-- Contents -->
+                            <circle cx="12" cy="8" r="4" fill="#FFD54F" stroke="#FF6F00" stroke-width="1" />
+                            <path d="M18 5 L22 0 L26 5 Z" fill="#00E5FF" opacity="0.8" />
+                        </g>
+                    </svg>`;
                 }
             }
         }
@@ -3957,7 +4404,9 @@
                 // Status Light
                 let statusLight = document.createElement('div'); statusLight.className = 'bin-status-light'; binBox.appendChild(statusLight);
 
-                this.binBar = document.createElement('div'); this.binBar.className = 'bin-resource';
+                this.binBar = document.createElement('div'); this.binBar.className = 'bin-resource glint-effect';
+                this.binBar.style.background = 'var(--gold-gem-gradient)';
+                this.binBar.style.boxShadow = 'inset 0 0 10px rgba(0,0,0,0.5)';
                 binBox.appendChild(this.binBar); this.el.appendChild(binBox);
                 let rock = document.createElement('div'); rock.className = 'rock-face'; this.el.appendChild(rock);
 
@@ -3966,13 +4415,8 @@
 
                 // Calculate theoretical miner power for badge
                 let theoreticalMiners = 1;
-                if (this.level >= 10) theoreticalMiners = 2;
-                if (this.level >= 25) theoreticalMiners = 3;
-                if (this.level >= 50) theoreticalMiners = 4;
-                if (this.level >= 75) theoreticalMiners = 5;
-                if (this.level >= 100) theoreticalMiners = 6;
-                if (this.level >= 150) theoreticalMiners = 7;
-                if (this.level >= 200) theoreticalMiners = 8;
+                if (this.level >= 25) theoreticalMiners = 2;
+                if (this.level >= 50) theoreticalMiners = 3;
 
                 upg.innerHTML = `
                     <div class="shaft-earnings-text" style="color:#FFF176; font-size:0.9rem; text-align:right; margin-bottom:2px;">$0/s</div>
@@ -4015,7 +4459,7 @@
             deposit(a) {
                 this.bin += a; this.updateVis();
                 const binX = (this.side === 'RIGHT' ? 460 : 140);
-                game.createFloatText(a * (typeof game !== 'undefined' ? game.prestigeMult : this.globalMult), binX, this.el.offsetTop + 60);
+                game.createFloatText(a, binX, this.el.offsetTop + 60);
                 game.audio.playSFX('coin');
             }
 
@@ -4027,9 +4471,10 @@
             }
 
             getCost() {
-                // Cost also scales with depth slightly to balance the income
-                let depthMult = Math.pow(2.2, this.id); // Reduced cost scaling slightly too
-                return Math.floor(CFG.baseCostShaft * Math.pow(1.25, this.level) * depthMult);
+                // Cost also scales with depth significantly to balance the income
+                // Increased depthMult from 2.2 to 5.0 as requested
+                let depthMult = Math.pow(5.0, this.id);
+                return Math.floor(CFG.baseCostShaft * Math.pow(1.3, this.level) * depthMult);
             }
 
             updateBtn() {
@@ -4056,13 +4501,8 @@
                 // Update worker badge to show theoretical power level
                 let existingBadge = this.el.querySelector('.worker-badge');
                 let theoreticalMiners = 1;
-                if (this.level >= 10) theoreticalMiners = 2;
-                if (this.level >= 25) theoreticalMiners = 3;
-                if (this.level >= 50) theoreticalMiners = 4;
-                if (this.level >= 75) theoreticalMiners = 5;
-                if (this.level >= 100) theoreticalMiners = 6;
-                if (this.level >= 150) theoreticalMiners = 7;
-                if (this.level >= 200) theoreticalMiners = 8;
+                if (this.level >= 25) theoreticalMiners = 2;
+                if (this.level >= 50) theoreticalMiners = 3;
 
                 if (theoreticalMiners > 1) {
                     if (existingBadge) {
@@ -4097,13 +4537,8 @@
 
                 // Calculate theoretical power level
                 let theoreticalMiners = 1;
-                if (this.level >= 10) theoreticalMiners = 2;
-                if (this.level >= 25) theoreticalMiners = 3;
-                if (this.level >= 50) theoreticalMiners = 4;
-                if (this.level >= 75) theoreticalMiners = 5;
-                if (this.level >= 100) theoreticalMiners = 6;
-                if (this.level >= 150) theoreticalMiners = 7;
-                if (this.level >= 200) theoreticalMiners = 8;
+                if (this.level >= 25) theoreticalMiners = 2;
+                if (this.level >= 50) theoreticalMiners = 3;
 
                 // Max physical miners: 3
                 let targetMiners = Math.min(theoreticalMiners, 3);
@@ -4116,14 +4551,17 @@
                     this.miners.push(m);
                 }
 
-                // Speed cap at level 20 - only capacity increases after that
-                let baseSpeed = 80 + (Math.min(this.level, 20) * 5); // Max speed: 180
+                // Speed cap at level 10 - only capacity increases after that
+                // Reduced speed scaling: base 60, +1 per level
+                let baseSpeed = 60 + (Math.min(this.level, 10) * 1); // Max speed: 70
 
                 this.miners.forEach(m => {
                     m.stats.speed = baseSpeed;
                     const resMult = (typeof game !== 'undefined' && game.research) ? game.research.multipliers : { capacity: 1, mineRate: 1, binCap: 1 };
-                    m.stats.capacity = 50 * lvlMult * depthMult * totalMult * resMult.capacity * powerMult;
-                    m.stats.mineRate = 20 * lvlMult * depthMult * totalMult * resMult.mineRate * powerMult;
+                    const mMult = this.manager ? this.manager.getSpeedMult() : 1;
+
+                    m.stats.capacity = 50 * lvlMult * depthMult * totalMult * resMult.capacity * powerMult * mMult;
+                    m.stats.mineRate = 20 * lvlMult * depthMult * totalMult * resMult.mineRate * powerMult * mMult;
                 });
 
                 // Dynamically calculate Bin Capacity based on TOTAL miner capacity
@@ -4135,9 +4573,8 @@
 
             update(dt, globalMult) {
                 if (this.manager) this.manager.update(dt);
-                let mMult = this.manager ? this.manager.getSpeedMult() : 1;
-                let finalDt = dt * globalMult * mMult;
-                this.miners.forEach(m => m.update(finalDt, (this.side === 'RIGHT' ? 60 : 540)));
+                // Miner visual speed is unaffected by managers now
+                this.miners.forEach(m => m.update(dt * globalMult, (this.side === 'RIGHT' ? 60 : 540)));
             }
             assignManager(type) {
                 if (this.manager) this.manager.removeUI();
@@ -4145,6 +4582,10 @@
                 this.dummyManagerUI.style.display = 'none'; // Hide the empty placeholder
                 this.manager.createUI(this.el, (this.side === 'RIGHT' ? 'pos-shaft-manager-right' : 'pos-shaft-manager'));
                 this.manager.setHireCallback(() => game.openManagerHire('SHAFT', this.id));
+                this.manager.setStateChangeCallback(() => {
+                    this.recalcStats();
+                    this.updateBtn();
+                });
             }
             upgrade() {
                 const oldLevel = this.level;
@@ -4194,7 +4635,7 @@
                 this.state = 'DOWN';
                 this.load = 0;
                 this.cap = 200;
-                this.speed = 100;
+                this.speed = 40; // Reduced base speed to 40
                 this.loadRate = 50; // Units per second that can be loaded
                 this.currentShaft = -1; // Track which shaft we're loading from
                 this.el = $('#elevator-cabin');
@@ -4219,6 +4660,10 @@
                 this.dummyManagerUI.style.display = 'none';
                 this.manager.createUI($('.elevator-shaft'), 'pos-ele-manager');
                 this.manager.setHireCallback(() => game.openManagerHire('ELE', null));
+                this.manager.setStateChangeCallback(() => {
+                    // Elevator updates stats in real-time in update() loop, but we can play a sound or trigger UI
+                    console.log("Elevator Manager State Changed");
+                });
             }
             update(dt, globalMult) {
                 // Dim/Brighten Light
@@ -4227,19 +4672,22 @@
                 // Manager Update (Real Time)
                 if (this.manager) this.manager.update(dt);
 
-                let speedMult = this.manager ? this.manager.getSpeedMult() : 1;
+                let mMult = this.manager ? this.manager.getSpeedMult() : 1;
                 let resMult = (typeof game !== 'undefined' && game.research) ? game.research.multipliers.loadRate : 1;
-                let effectiveSpeed = this.speed * speedMult * globalMult;
-                let effectiveLoadRate = this.loadRate * speedMult * globalMult * resMult;
+
+                // Effective stats
+                let effSpeed = this.speed * globalMult;
+                let effCap = this.cap * mMult;
+                let effLoadRate = this.loadRate * mMult * globalMult * resMult;
 
                 let depthCount = Math.ceil(game.shafts.length / 2);
                 let bottom = (depthCount * (CFG.shaftH + CFG.shaftGap));
 
                 if (this.state === 'DOWN') {
-                    this.y += effectiveSpeed * dt;
+                    this.y += effSpeed * dt;
                     // ANIMATION STATE
                     this.el.classList.add('move-down');
-                    this.el.classList.remove('move-up');
+                    this.el.classList.remove('move-up', 'moving');
 
                     // Sound
                     game.audio.startLoop('eleMove');
@@ -4255,10 +4703,10 @@
                         this.el.parentElement.classList.add('moving');
                     }
                 } else if (this.state === 'UP') {
-                    this.y -= effectiveSpeed * dt;
+                    this.y -= effSpeed * dt;
                     // ANIMATION STATE
                     this.el.classList.add('move-up');
-                    this.el.classList.remove('move-down');
+                    this.el.classList.remove('move-down', 'moving');
 
                     // Sound
                     game.audio.startLoop('eleMove');
@@ -4269,7 +4717,7 @@
                         let sY = depth * (CFG.shaftH + CFG.shaftGap) + 50;
 
                         // If we're near a shaft and have room and shaft has resources
-                        if (Math.abs(this.y - sY) < 15 && this.load < this.cap && s.bin > 0) {
+                        if (Math.abs(this.y - sY) < 15 && this.load < effCap && s.bin > 0) {
                             // Stop and enter LOADING state
                             if (this.state === 'UP' && this.currentShaft !== i) {
                                 this.state = 'LOADING';
@@ -4290,7 +4738,7 @@
                         this.y = 0;
                         game.elevDepot += this.load;
                         this.load = 0;
-                        this.updateVis();
+                        this.updateVis(effCap);
                         this.state = 'DOWN';
                         this.currentShaft = -1;
                         this.el.classList.remove('move-up', 'moving'); // Will switch to DOWN next frame
@@ -4299,7 +4747,7 @@
                         // Sound
                         game.audio.stopLoop('eleMove');
                         game.audio.playSFX('eleArrival');
-                    } else if (this.state === 'UP') {
+                    } else {
                         this.el.classList.add('moving');
                         this.el.parentElement.classList.add('moving');
                     }
@@ -4308,9 +4756,9 @@
                     this.el.classList.remove('move-up', 'move-down');
                     // Loading state - load at specific rate
                     let shaft = game.shafts[this.currentShaft];
-                    if (shaft && shaft.bin > 0 && this.load < this.cap) {
-                        let room = this.cap - this.load;
-                        let canLoad = effectiveLoadRate * dt; // How much we can load this frame
+                    if (shaft && shaft.bin > 0 && this.load < effCap) {
+                        let room = effCap - this.load;
+                        let canLoad = effLoadRate * dt; // How much we can load this frame
                         let available = Math.min(shaft.bin, canLoad);
                         let toLoad = Math.min(room, available);
 
@@ -4318,10 +4766,7 @@
                             shaft.bin -= toLoad;
                             shaft.updateVis();
                             this.load += toLoad;
-                            this.updateVis();
-
-                            // Optional: Small click sound for loading? 
-                            // But maybe eleArrival is enough
+                            this.updateVis(effCap);
                         } else {
                             // Done loading this shaft, continue up
                             this.state = 'UP';
@@ -4342,13 +4787,18 @@
                     this.el.style.filter = 'brightness(1)';
                 }
             }
-            updateVis() { let p = (this.load / this.cap) * 100; if (p > 100) p = 100; this.fillEl.style.height = (p * 0.5) + 'px'; }
+            updateVis(customCap) {
+                let c = customCap || this.cap;
+                let p = (this.load / c) * 100;
+                if (p > 100) p = 100;
+                this.fillEl.style.height = (p * 0.5) + 'px';
+            }
             upgrade() {
                 this.level++;
                 this.cap *= 1.3;
-                // Speed cap at level 25 - only capacity increases after that
-                if (this.level <= 25) {
-                    this.speed += 10;
+                // Speed cap at level 11 - only capacity increases after that
+                if (this.level <= 11) {
+                    this.speed += 2; // Increment speed by 2
                 }
                 // Load rate increases exponentially to match capacity (keeps load time ~4s)
                 this.loadRate = 50 * Math.pow(1.3, this.level - 1);
@@ -4358,8 +4808,8 @@
             loadState(lvl) {
                 this.level = lvl;
                 this.cap = 200 * Math.pow(1.3, lvl - 1);
-                // Speed cap at level 25
-                this.speed = 100 + (10 * Math.min(lvl - 1, 24));
+                // Speed cap at level 11
+                this.speed = 40 + (2 * Math.min(lvl - 1, 10));
                 // Load rate increases exponentially with level
                 this.loadRate = 50 * Math.pow(1.3, lvl - 1);
                 $('#btn-ele').innerText = `Lvl ${this.level}`;
@@ -4408,6 +4858,9 @@
                 // Append real manager to FRONT layer so it's visible on top of house
                 this.manager.createUI($('.warehouse-front'), 'pos-wh-manager');
                 this.manager.setHireCallback(() => game.openManagerHire('WH', null));
+                this.manager.setStateChangeCallback(() => {
+                    this.applyStats();
+                });
             }
             addGlow(x, y) {
                 let g = document.createElement('div');
@@ -4435,17 +4888,15 @@
                 this.applyStats();
             }
             update(dt, globalMult) {
+                if (this.manager) this.manager.update(dt);
                 let dP = (game.elevDepot / 1000) * 100; if (dP > 100) dP = 100; this.depotVis.style.height = dP + '%';
                 // Toggle glows based on night
                 let intensity = game.dayNight ? game.dayNight.getNightIntensity() : 0;
                 this.glows.forEach(g => g.style.opacity = intensity);
 
-                if (this.manager) this.manager.update(dt);
-                let mMult = this.manager ? this.manager.getSpeedMult() : 1;
-                let finalMult = globalMult * mMult;
-
                 this.transporters.forEach(t => {
-                    let effSpeed = t.speed * finalMult;
+                    // Warehouse visual speed is unaffected by managers now
+                    let effSpeed = t.speed * globalMult;
 
                     // Update light opacity
                     let l = t.el.querySelector('.light-source');
@@ -4478,7 +4929,7 @@
                         if (t.x < homeX) t.x += effSpeed * dt; else {
                             if (t.load > 0) {
                                 const researchMult = (this.research) ? this.research.multipliers.globalEarnings : 1;
-                                const income = t.load * game.prestigeMult * researchMult;
+                                const income = t.load * researchMult;
                                 game.money += income;
                                 // JUICINESS: Spawn Flying Coins
                                 game.spawnFlyingMoney(t.x + 30, 200, Math.min(5, Math.ceil(t.load / 10))); // Spawn up to 5 coins visual
@@ -4498,8 +4949,8 @@
             }
             applyStats() {
                 let baseCap = 300 * Math.pow(1.3, this.level - 1);
-                // Speed cap at level 20 - only capacity increases after that
-                let baseSpd = 45 * Math.pow(1.07, Math.min(this.level - 1, 19));
+                // Speed cap at level 15 - only capacity increases after that
+                let baseSpd = 30 * Math.pow(1.02, Math.min(this.level - 1, 14)); // Reduced base speed and scaling
 
                 // COMPENSATION: Fewer carts -> Higher Capacity per cart
                 let intendedCount = 1 + Math.floor((this.level - 1) / 5);
@@ -4507,7 +4958,8 @@
                 let compMult = (actualCount > 0) ? (intendedCount / actualCount) : 1;
 
                 const resMult = (typeof game !== 'undefined' && game.research) ? game.research.multipliers.whCapacity : 1;
-                this.transporters.forEach(t => { t.cap = baseCap * compMult * resMult; t.speed = baseSpd; });
+                const mMult = this.manager ? this.manager.getSpeedMult() : 1;
+                this.transporters.forEach(t => { t.cap = baseCap * compMult * resMult * mMult; t.speed = baseSpd; });
             }
             upgrade() {
                 this.level++;
@@ -4595,16 +5047,16 @@
         // --- AUDIO SYSTEM ---
         class AudioSystem {
             constructor() {
-                this.bgm = new Audio('Gamesound.mp3');
+                this.bgm = new Audio('audio/Gamesound.mp3');
                 this.bgm.loop = true;
 
                 // Research Music
-                this.researchMusic = new Audio('Researchmusik.mp3');
+                this.researchMusic = new Audio('audio/Researchmusik.mp3');
                 this.researchMusic.loop = true;
                 this.researchMusic.volume = 0;
 
                 // Invasion BGM
-                this.invasionBgm = new Audio('Koboldmusik.mp3');
+                this.invasionBgm = new Audio('audio/Koboldmusik.mp3');
                 this.invasionBgm.loop = true;
                 this.invasionBgm.volume = 0;
 
@@ -4612,24 +5064,26 @@
 
                 // SFX POOL
                 this.sfx = {
-                    coin: new Audio('Coin.mp3'),
-                    error: new Audio('Error.mp3'),
-                    mine: new Audio('Miningsound.mp3'),
-                    newWorld: new Audio('Newworldsound.mp3'),
-                    upgrade: new Audio('Upgradebutton.mp3'),
-                    koboldsound: new Audio('Koboldsound.mp3'),
-                    diamond: new Audio('Diamond.mp3'),
-                    eleMove: new Audio('Elevatormovesound 2.mp3'),
-                    eleArrival: new Audio('Elevatorarrivalsound 2.mp3'),
-                    cartMove: new Audio('Warehousecartmove.mp3'),
-                    unload: new Audio('Unloading.mp3')
+                    coin: new Audio('audio/Coin.mp3'),
+                    error: new Audio('audio/Error.mp3'),
+                    mine: new Audio('audio/Miningsound.mp3'),
+                    newWorld: new Audio('audio/Newworldsound.mp3'),
+                    upgrade: new Audio('audio/Upgradebutton.mp3'),
+                    koboldsound: new Audio('audio/Koboldsound.mp3'),
+                    diamond: new Audio('audio/Diamond.mp3'),
+                    eleMove: new Audio('audio/Elevatormovesound 2.mp3'),
+                    eleArrival: new Audio('audio/Elevatorarrivalsound 2.mp3'),
+                    cartMove: new Audio('audio/Warehousecartmove.mp3'),
+                    unload: new Audio('audio/Unloading.mp3'),
+                    helicopter: new Audio('audio/helicopter.mp3')
                 };
 
                 this.sfx.eleMove.loop = true;
                 this.sfx.cartMove.loop = true;
+                this.sfx.helicopter.loop = true;
 
                 // Shop Music (Exclusive Loop)
-                this.shopMusic = new Audio('Shopsound.mp3');
+                this.shopMusic = new Audio('audio/Shopsound.mp3');
                 this.shopMusic.loop = true;
 
                 // Throttling for mining sounds
@@ -4736,14 +5190,18 @@
                 this.fadeIntervals.set(audio, interval);
             }
 
-            fadeOut(audio) {
+            fadeOut(audio, durationMs = 1000) {
                 if (this.fadeIntervals.has(audio)) {
                     clearInterval(this.fadeIntervals.get(audio));
                 }
 
+                const steps = 20;
+                const intervalTime = durationMs / steps;
+                const volStep = audio.volume / steps;
+
                 let interval = setInterval(() => {
                     let vol = audio.volume;
-                    vol -= 0.05;
+                    vol -= volStep;
                     if (vol <= 0) {
                         vol = 0;
                         audio.pause();
@@ -4751,7 +5209,7 @@
                         this.fadeIntervals.delete(audio);
                     }
                     audio.volume = Math.max(0, vol);
-                }, 100);
+                }, intervalTime);
                 this.fadeIntervals.set(audio, interval);
             }
 
@@ -4838,16 +5296,26 @@
                 if (!this.sfxEnabled) return;
                 const src = this.sfx[id];
                 if (src) {
-                    src.volume = (id === 'eleMove' || id === 'cartMove' ? 0.2 : 0.5) * this.sfxVolume * volMult * this.duckingMultiplier;
+                    let baseVol = 0.5;
+                    if (id === 'eleMove' || id === 'cartMove') baseVol = 0.2;
+                    if (id === 'helicopter') baseVol = 0.25; // 50% lower than default 0.5
+
+                    src.volume = baseVol * this.sfxVolume * volMult * this.duckingMultiplier;
                     if (src.paused) src.play().catch(e => { });
                 }
             }
 
             stopLoop(id) {
                 const src = this.sfx[id];
-                if (src && !src.paused) {
-                    src.pause();
-                    src.currentTime = 0;
+                if (src) {
+                    if (this.fadeIntervals && this.fadeIntervals.has(src)) {
+                        clearInterval(this.fadeIntervals.get(src));
+                        this.fadeIntervals.delete(src);
+                    }
+                    if (!src.paused) {
+                        src.pause();
+                        src.currentTime = 0;
+                    }
                 }
             }
 
@@ -4914,8 +5382,7 @@
                 this.layer = document.getElementById('monster-layer');
 
                 // Settings: Spawn every 5 to 7 Minutes (300 to 420 seconds)
-                this.invasionInterval = 300 + Math.random() * 120;
-                this.timer = this.invasionInterval;
+                this.timer = 60; // First invasion after 60 seconds as requested
                 this.state = 'IDLE'; // IDLE, WARNING, ATTACK, RETREAT
 
                 // Difficulty Scaling & Stats
@@ -5078,8 +5545,8 @@
                 this.thieves.forEach(t => t.remove()); // Cleanup visuals if any left (e.g. Fled ones might have lingered?)
                 this.thieves = [];
 
-                // Automate Next Invasion (5-7 Minutes)
-                this.timer = 300 + Math.random() * 120;
+                // Automate Next Invasion (2.5 Minutes average = 150 seconds +/- 30s)
+                this.timer = 120 + Math.random() * 60;
                 console.log(`Next invasion in ${Math.floor(this.timer)} seconds.`);
             }
         }
@@ -5288,7 +5755,17 @@
 
                 // REWARD LOGIC: YOU ONLY GET MONEY BACK IF YOU KILL HIM
                 let refund = this.stolenAccumulated;
-                let bonus = Math.max(100, refund * 3); // Modified: 300% Bonus for kill!
+
+                // NEW SCALING REWARD:
+                // 1. Base bonus calculation depends on wealth and frequency of attacks
+                // Start with 1% of wealth, increases by 1% per invasion level
+                let wealthFactor = Math.max(10, this.manager.game.money * 0.01);
+                let growthFactor = 1 + (this.manager.invasionLevel * 0.5); // 50% growth per level
+                let baseBonus = wealthFactor * growthFactor;
+
+                // 2. Multiplier for stolen funds also scales
+                let bonusMult = 3 + (this.manager.invasionLevel * 0.2);
+                let bonus = Math.floor(Math.max(baseBonus, refund * bonusMult));
 
                 const total = refund + bonus;
                 if (total > 0) {
@@ -5334,12 +5811,236 @@
             }
         }
 
+        class WeatherManager {
+            constructor(game) {
+                this.game = game;
+                this.layer = $('.sky-area');
+                this.state = 'CLEAR'; // CLEAR, RAIN, SNOW
+                this.timer = 60 + Math.random() * 120; // 1-3 mins
+                this.particles = [];
+                this.maxParticles = 50;
+                this.spawnRate = 0.2; // Spawn every X seconds
+                this.spawnTimer = 0;
+            }
+
+            update(dt) {
+                this.timer -= dt;
+                if (this.timer <= 0) {
+                    this.cycleWeather();
+                }
+
+                if (this.state !== 'CLEAR') {
+                    this.spawnTimer += dt;
+                    if (this.spawnTimer >= this.spawnRate) {
+                        this.spawnTimer = 0;
+                        this.spawnParticle();
+                    }
+                }
+            }
+
+            cycleWeather() {
+                const states = ['CLEAR', 'RAIN', 'SNOW'];
+                // Some worlds might favor different weather
+                const world = WORLDS[this.game.worldId];
+
+                let roll = Math.random();
+                if (world.id === 'MOON') {
+                    this.state = 'CLEAR'; // No weather on moon (usually)
+                } else if (world.id === 'MOUNTAIN') {
+                    this.state = roll < 0.6 ? 'SNOW' : (roll < 0.8 ? 'RAIN' : 'CLEAR');
+                } else {
+                    this.state = roll < 0.7 ? 'CLEAR' : (roll < 0.9 ? 'RAIN' : 'SNOW');
+                }
+
+                this.timer = 60 + Math.random() * 120;
+                console.log("Weather changed to:", this.state);
+
+                // Cleanup old particles when clearing or changing
+                if (this.state === 'CLEAR') {
+                    this.clearAllParticles();
+                }
+            }
+
+            spawnParticle() {
+                if (this.particles.length >= this.maxParticles) {
+                    const old = this.particles.shift();
+                    old.remove();
+                }
+
+                const p = document.createElement('div');
+                p.className = `weather-particle ${this.state === 'RAIN' ? 'raindrop' : 'snowflake'}`;
+
+                // Random horizontal start
+                p.style.left = Math.random() * 100 + '%';
+
+                // Staggered fall duration
+                const duration = this.state === 'RAIN' ? (0.8 + Math.random() * 0.4) : (3 + Math.random() * 4);
+                p.style.animationDuration = duration + 's';
+
+                this.layer.appendChild(p);
+                this.particles.push(p);
+
+                // Auto remove after animation
+                setTimeout(() => {
+                    const idx = this.particles.indexOf(p);
+                    if (idx > -1) this.particles.splice(idx, 1);
+                    p.remove();
+                }, duration * 1000 + 100);
+            }
+
+            clearAllParticles() {
+                this.particles.forEach(p => p.remove());
+                this.particles = [];
+            }
+
+            setTheme(worldId) {
+                this.clearAllParticles();
+                this.cycleWeather(); // Initial roll for the world
+            }
+        }
+
+        /* --- HELICOPTER BONUS SYSTEM --- */
+        class HelicopterManager {
+            constructor(game) {
+                this.game = game;
+                this.layer = $('#monster-layer');
+                this.timer = 15 + Math.random() * 15; // First one sooner (15-30s)
+                this.activeHelis = [];
+            }
+
+            update(dt) {
+                this.timer -= dt;
+
+                // Sound warning: 2 seconds before spawn
+                if (this.timer <= 2 && this.timer > 1.9 && this.activeHelis.length === 0) {
+                    this.game.audio.startLoop('helicopter');
+                }
+
+                if (this.timer <= 0) {
+                    this.spawn();
+                    this.timer = 120 + Math.random() * 60; // 2-3 mins
+                }
+                this.activeHelis.forEach(h => h.update(dt));
+            }
+
+            spawn() {
+                const heli = new Helicopter(this.game, this);
+                this.activeHelis.push(heli);
+            }
+
+            removeHeli(heli) {
+                const idx = this.activeHelis.indexOf(heli);
+                if (idx > -1) this.activeHelis.splice(idx, 1);
+            }
+        }
+
+        class Helicopter {
+            constructor(game, manager) {
+                this.game = game;
+                this.manager = manager;
+
+                // Randomize Start/End for Diagonal Flight
+                const fromLeft = Math.random() > 0.5;
+                if (fromLeft) {
+                    this.x = -150;
+                    this.targetX = 1550;
+                    this.y = -50 + Math.random() * 50; // High start
+                    this.targetY = 200 + Math.random() * 200; // Diagonal down
+                } else {
+                    this.x = 1550;
+                    this.targetX = -150;
+                    this.y = -50 + Math.random() * 50;
+                    this.targetY = 200 + Math.random() * 200;
+                }
+
+                this.speed = 120 + Math.random() * 60;
+                const dist = Math.sqrt(Math.pow(this.targetX - this.x, 2) + Math.pow(this.targetY - this.y, 2));
+                this.vx = ((this.targetX - this.x) / dist) * this.speed;
+                this.vy = ((this.targetY - this.y) / dist) * this.speed;
+
+                this.el = document.createElement('div');
+                this.el.className = 'helicopter-entity heli-pulse';
+                this.el.innerHTML = getHelicopterSVG();
+                this.el.style.left = this.x + 'px';
+                this.el.style.top = this.y + 'px';
+
+                // Flip SVG if coming from right
+                if (!fromLeft) {
+                    this.el.style.transform = 'scaleX(-1)';
+                }
+
+                this.el.onmousedown = (e) => {
+                    e.stopPropagation();
+                    this.claim();
+                };
+
+                // The sound already starts in HelicopterManager.update via warning logic
+                // but we ensure it's on just in case of manual spawns
+                this.game.audio.startLoop('helicopter');
+                this.manager.layer.appendChild(this.el);
+            }
+
+            update(dt) {
+                this.x += this.vx * dt;
+                this.y += this.vy * dt;
+
+                this.el.style.left = this.x + 'px';
+
+                // Bobbing added to current diagonal Y
+                const bob = Math.sin(Date.now() / 500) * 10;
+                this.el.style.top = (this.y + bob) + 'px';
+
+                // Check bounds
+                if (this.x < -200 || this.x > 1600 || this.y > 600) {
+                    this.remove();
+                }
+            }
+
+            claim() {
+                // Calculate Reward: Total theoretical PPS * 120 (2 minutes)
+                let totalPPS = 0;
+                this.game.shafts.forEach(s => {
+                    const dist = 400;
+                    let mMult = s.manager ? s.manager.getSpeedMult() : 1;
+                    s.miners.forEach(m => {
+                        const speed = m.stats.speed * mMult;
+                        const walkTime = (dist / speed) * 2;
+                        const mineTime = m.stats.capacity / m.stats.mineRate;
+                        const cycleTime = walkTime + mineTime;
+                        totalPPS += (m.stats.capacity / cycleTime);
+                    });
+                });
+
+                const reward = Math.floor(Math.max(100, totalPPS * 120));
+                this.game.money += reward;
+
+                this.game.createFloatText(`+$${fmt(reward)}`, this.x + 60, this.y, 'bonus-text');
+                this.game.audio.playSFX('coin'); // Use coin SFX instead of helicopter SFX on claim
+
+                if (this.game.spawnFlyingMoney) {
+                    this.game.spawnFlyingMoney(this.x + 60, this.y, 10);
+                }
+
+                this.remove();
+            }
+
+            remove() {
+                this.el.remove();
+                this.manager.removeHeli(this);
+                // Stop sound immediately if no more helis are active
+                if (this.manager.activeHelis.length === 0) {
+                    this.game.audio.stopLoop('helicopter');
+                }
+            }
+        }
+
 
 
         class Game {
             constructor() {
                 this.audio = new AudioSystem();
                 this.monsterManager = new MonsterManager(this);
+                this.helicopterManager = new HelicopterManager(this);
                 this.audio.init();
 
                 this.money = 100; this.superCash = 0; this.shafts = []; this.elevDepot = 0;
@@ -5355,6 +6056,7 @@
 
                 this.dayNight = new DayNightManager(); // Day Night Init
                 this.research = new ResearchTree(); // Research Tree Init
+                this.weather = new WeatherManager(this); // Weather Init
 
                 this.loadGame();
                 if (this.shafts.length === 0) this.buyShaft();
@@ -6010,14 +6712,37 @@
                         const diamondReward = statsContainer.querySelector('div[style*="right:-10px"] div');
 
                         if (levelSpan) levelSpan.innerText = `Level ${s.level}`;
-                        if (goalSpan) goalSpan.innerText = `Next Goal: Level ${nextMs}`; // Color style is inside span
+                        if (goalSpan) goalSpan.innerText = `Next Goal: Level ${nextMs}`;
                         if (barFill) barFill.style.width = `${progress}%`;
-                        if (diamondReward) diamondReward.innerHTML = `💎<br>${msReward}`;
+                        if (diamondReward) {
+                            let rewardHtml = `💎<br>${msReward}`;
+                            if (nextMs === 25 || nextMs === 50) {
+                                rewardHtml += `<div style="font-size:0.6rem; color:#FFF; margin-top:1px; line-height:1; font-weight:bold;">+⛏️1</div>`;
+                            }
+                            diamondReward.innerHTML = rewardHtml;
+                        }
 
-                        // Also update Stat rows (speed/capacity) - hard to select without IDs.
-                        // For now, let's accept that stats text might lag slightly or just do a light re-render of stats rows if needed?
-                        // Or, to keep it simple and smooth, ONLY update the progress bar and cost.
-                        // Users care about the bar mostly during rapid fire.
+                        // Update Worker Stat (if it exists)
+                        const workerRow = statsContainer.querySelector('.worker-stat-row');
+                        if (workerRow) {
+                            let currentWorkers = (s.level >= 50 ? 3 : (s.level >= 25 ? 2 : 1));
+                            let nextWorkers = ((s.level + 1) >= 50 ? 3 : ((s.level + 1) >= 25 ? 2 : 1));
+                            let nextUnlock = s.level < 25 ? 25 : (s.level < 50 ? 50 : null);
+
+                            workerRow.querySelector('.stat-val-curr').innerText = currentWorkers;
+                            workerRow.querySelector('.stat-val-next').innerText = nextWorkers;
+
+                            const hintSpan = workerRow.querySelector('.worker-hint');
+                            if (hintSpan) {
+                                hintSpan.innerText = (nextUnlock && nextWorkers === currentWorkers) ? `(Next: Lvl ${nextUnlock})` : '';
+                            }
+
+                            if (nextWorkers > currentWorkers) {
+                                workerRow.querySelector('.stat-next').style.color = '#69F0AE';
+                            } else {
+                                workerRow.querySelector('.stat-next').style.color = '';
+                            }
+                        }
                     }
                 } else {
                     // Fallback for ELE/WH
@@ -6147,19 +6872,19 @@
                             <div class="shop-item" onclick="game.hireManager('JUNIOR')">
                                 <div class="shop-item-icon">👷</div>
                                 <div class="shop-item-name">Junior Manager</div>
-                                <div style="font-size:0.7rem; margin-bottom:5px;">1.5x Speed (1.5m)</div>
+                                <div style="font-size:0.7rem; margin-bottom:5px;">2x Yield (1m)</div>
                                 <div class="shop-item-price" style="color:#FFF">$${fmt(jrCost)}</div>
                             </div>
                             <div class="shop-item" onclick="game.hireManager('SENIOR')" style="border-color:#FFCA28; background:linear-gradient(135deg, #424242, #37474F)">
                                 <div class="shop-item-icon">🤵</div>
                                 <div class="shop-item-name">Senior Manager</div>
-                                <div style="font-size:0.7rem; margin-bottom:5px;">4x Speed (2m)</div>
+                                <div style="font-size:0.7rem; margin-bottom:5px;">4x Yield (2m)</div>
                                 <div class="shop-item-price" style="color:#FFF">$${fmt(srCost)}</div>
                             </div>
                             <div class="shop-item" onclick="game.hireManager('EXECUTIVE')" style="border-color:#F44336; background:linear-gradient(135deg, #5D4037, #3E2723); box-shadow: 0 0 10px #D32F2F;">
                                 <div class="shop-item-icon">🕴️</div>
                                 <div class="shop-item-name">Executive</div>
-                                <div style="font-size:0.7rem; margin-bottom:5px;">10x Speed (5m)</div>
+                                <div style="font-size:0.7rem; margin-bottom:5px;">10x Yield (5m)</div>
                                 <div class="shop-item-price" style="color:#69F0AE">💎 ${MANAGERS.EXECUTIVE.cost}</div>
                             </div>
                         </div>
@@ -6201,6 +6926,7 @@
                                 <div style="position:absolute; right:-10px; top:50%; transform:translateY(-50%); width:32px; height:32px; background:linear-gradient(135deg, #02fa90, #00c853); border:2px solid #FFF; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow: 0 4px 8px rgba(0,0,0,0.4); z-index:10;">
                                     <div style="font-size:0.75rem; font-weight:bold; color:#004D40; text-align:center; line-height:1;">
                                         💎<br>${msReward}
+                                        ${(nextMs === 25 || nextMs === 50) ? `<div style="font-size:0.6rem; color:#FFF; margin-top:1px;">+⛏️1</div>` : ''}
                                     </div>
                                 </div>
                             </div>
@@ -6210,8 +6936,35 @@
                         </div>
                     `;
 
+                    // Worker Progression Row
+                    let currentWorkers = (s.level >= 50 ? 3 : (s.level >= 25 ? 2 : 1));
+                    let nextWorkers = ((s.level + 1) >= 50 ? 3 : ((s.level + 1) >= 25 ? 2 : 1));
+                    let nextUnlock = s.level < 25 ? 25 : (s.level < 50 ? 50 : null);
+
+                    statsHtml += `
+                        <div class="stats-row worker-stat-row">
+                            <span>Workers</span>
+                            <span>
+                                <span class="stat-val-curr">${currentWorkers}</span>
+                                <span class="stat-next" style="${nextWorkers > currentWorkers ? 'color:#69F0AE' : ''}">
+                                    &#8594; <span class="stat-val-next">${nextWorkers}</span>
+                                </span>
+                                <span class="worker-hint" style="font-size:0.75rem; color:#B0BEC5; margin-left:10px;">
+                                    ${(nextUnlock && nextWorkers === currentWorkers) ? `(Next: Lvl ${nextUnlock})` : ''}
+                                </span>
+                            </span>
+                        </div>
+                    `;
+
                     // Display stats for the first miner, assuming others are similar
-                    statsHtml += row("Speed", s.miners[0].stats.mineRate, s.miners[0].stats.mineRate * 1.2) + row("Capacity", s.miners[0].stats.capacity, s.miners[0].stats.capacity * 1.2);
+                    let currentSpeed = s.miners[0].stats.speed;
+                    let nextSpeed = 60 + (Math.min(s.level + 1, 10) * 1);
+                    if (currentSpeed >= 70) {
+                        statsHtml += `<div class="stats-row"><span>Speed</span><span>${fmt(currentSpeed)} <span style="color:#FFB74D">⚠️ MAX</span></span></div>`;
+                    } else {
+                        statsHtml += row("Speed", currentSpeed, nextSpeed);
+                    }
+                    statsHtml += row("Capacity", s.miners[0].stats.capacity, s.miners[0].stats.capacity * 1.2);
                 } else if (this.activeUpgradeTarget === 'ELE') {
                     let e = this.elevator;
                     title = "Elevator";
@@ -6220,9 +6973,9 @@
                     // Show capacity (always increases)
                     statsHtml += row("Capacity", e.cap, e.cap * 1.3);
 
-                    // Show speed (only if it will change - before level 25)
-                    if (e.level < 25) {
-                        statsHtml += row("Speed", e.speed, e.speed + 10);
+                    // Show speed (only if it will change - before level 11)
+                    if (e.level < 11) {
+                        statsHtml += row("Speed", e.speed, e.speed + 2);
                     } else {
                         statsHtml += `<div class="stats-row"><span>Speed</span><span>${e.speed} <span style="color:#FFB74D">⚠️ MAX</span></span></div>`;
                     }
@@ -6301,6 +7054,7 @@
 
             recalcAll() {
                 this.shafts.forEach(s => { s.recalcStats(); s.updateBtn(); });
+                this.warehouse.applyStats();
             }
 
             resetGame() {
@@ -6361,7 +7115,26 @@
                         // RESET
                         this.money = 100;
                         this.shafts = [];
-                        $('#shafts-anchor').innerHTML = ''; // Clear DOM
+                        $('#shafts-anchor').innerHTML = ''; // Clear Left DOM
+                        $('#shafts-right-anchor').innerHTML = ''; // Clear Right DOM
+
+                        // Thoroughly clear Logistics areas to prevent duplicate manager slots/lights
+                        const eleShaft = $('.elevator-shaft');
+                        if (eleShaft) {
+                            eleShaft.querySelectorAll('.manager-slot, .light-source').forEach(el => el.remove());
+                        }
+                        const whVisual = $('.warehouse-visual');
+                        if (whVisual) {
+                            whVisual.querySelectorAll('.manager-slot, .light-source, .warehouse-window-glow').forEach(el => el.remove());
+                        }
+                        const whFront = $('.warehouse-front');
+                        if (whFront) {
+                            whFront.querySelectorAll('.manager-slot').forEach(el => el.remove());
+                        }
+                        // Clear transporters from surface
+                        const surface = $('#surface-angels-layer');
+                        if (surface) surface.innerHTML = '';
+
                         this.elevator = new Elevator();
                         this.warehouse = new Warehouse();
                         // Reset upgrades visual
@@ -6369,12 +7142,12 @@
                         $('#depot-fill').style.height = '0px';
                         $('#btn-ele').innerText = 'Lvl 1';
                         $('#btn-wh').innerText = 'Lvl 1';
-                        $('.character-transporter').forEach(e => e.remove()); // Clear transporters
 
                         // APPLY
                         this.worldId = idx;
                         this.prestigeMult = w.mult;
                         this.applyWorldVisuals(idx);
+                        if (this.weather) this.weather.setTheme(idx);
 
                         // RESTART
                         this.buyShaft(); // Start with 1 shaft
@@ -6525,6 +7298,8 @@
 
                 if (this.dayNight) this.dayNight.update(dt); // Update Day Night
                 if (this.monsterManager) this.monsterManager.update(dt);
+                if (this.helicopterManager) this.helicopterManager.update(dt);
+                if (this.weather) this.weather.update(dt); // Update Weather
 
                 // Apply Boosts
                 let speedMult = this.boosts.speed ? 2 : 1;
@@ -6608,6 +7383,33 @@
         updateMobileScaling();
 
     </script>
+    <script type="text/javascript">
+        window.SDK_OPTIONS = {
+            gameId: "jxqbjaj9st5m8o95ibirxkbw71o2vifi",
+            onEvent: function (a) {
+                switch (a.name) {
+                    case "SDK_GAME_PAUSE":
+                        // pause game logic / mute audio
+                        break;
+                    case "SDK_GAME_START":
+                        // advertisement done, resume game logic and unmute audio
+                        break;
+                    case "SDK_READY":
+                        // when sdk is ready
+                        break;
+                }
+            }
+        };
+        (function (a, b, c) {
+            var d = a.getElementsByTagName(b)[0];
+            a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "https://api.gamemonetize.com/sdk.js", d.parentNode.insertBefore(a, d))
+        })(document, "script", "gamemonetize-sdk");
+
+        if (typeof sdk !== 'undefined' && sdk.showBanner !== 'undefined') {
+            sdk.showBanner();
+        }
+    </script>
+
 </body>
 
 </html>

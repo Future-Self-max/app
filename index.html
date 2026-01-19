@@ -6086,7 +6086,9 @@
             }
 
             generateMission() {
-                const types = ['SHAFT_LEVEL', 'EARN_CASH', 'ACTIVATE_MANAGER']; // BUY_MANAGER removed for simplicity for now
+                const types = ['EARN_CASH', 'ACTIVATE_MANAGER'];
+                if (this.game.shafts.length > 0) types.push('SHAFT_LEVEL');
+
                 const type = types[Math.floor(Math.random() * types.length)];
                 let target = {};
                 let reward = { type: 'SC', val: 2 + Math.floor(Math.random() * 5) }; // 2-6 SC
@@ -6252,7 +6254,7 @@
                 this.layer = document.getElementById('monster-layer');
 
                 // Settings: Spawn every 5 to 7 Minutes (300 to 420 seconds)
-                this.timer = 60; // First invasion after 60 seconds as requested
+                this.timer = 300; // First invasion after 60 seconds as requested
                 this.state = 'IDLE'; // IDLE, WARNING, ATTACK, RETREAT
 
                 // Difficulty Scaling & Stats
@@ -7060,7 +7062,7 @@
                 } else if (this.step === 4.5) {
                     // Inside Research
                     if (this.pointer) this.pointer.style.display = 'none';
-                    await this.showOverlay("RESEARCH LAB", "Unlock powerful upgrades here to boost your mining efficiency! (Click 'GOT IT' to close)");
+                    await this.showOverlay("RESEARCH LAB", "Unlock powerful upgrades here to boost your mining efficiency!");
                     this.game.closeResearch();
                     this.step = 5;
                     this.updateStep();
@@ -7070,7 +7072,7 @@
                 } else if (this.step === 5.5) {
                     // Inside Shop
                     if (this.pointer) this.pointer.style.display = 'none';
-                    await this.showOverlay("SHOP", "Buy Time Warps and permanent boosts here! (Mobile optimized).");
+                    await this.showOverlay("SHOP", "Buy Time Warps and permanent boosts here!");
                     this.game.closeModal();
                     this.step = 6;
                     this.updateStep();
@@ -8340,12 +8342,15 @@
                     if (this.activeUpgradeTarget === 'SHAFT') {
                         if (this.shafts[this.activeUpgradeId].manager) this.shafts[this.activeUpgradeId].manager.el.remove(); // Visual Cleanup
                         this.shafts[this.activeUpgradeId].assignManager(type);
+                        this.shafts[this.activeUpgradeId].manager.activate(); // AUTO-ACTIVATE
                     } else if (this.activeUpgradeTarget === 'ELE') {
                         if (this.elevator.manager) this.elevator.manager.el.remove();
                         this.elevator.assignManager(type);
+                        this.elevator.manager.activate(); // AUTO-ACTIVATE
                     } else if (this.activeUpgradeTarget === 'WH') {
                         if (this.warehouse.manager) this.warehouse.manager.el.remove();
                         this.warehouse.assignManager(type);
+                        this.warehouse.manager.activate(); // AUTO-ACTIVATE
                     }
 
                     if (mgrSpec.type === 'cash') this.money -= cost;

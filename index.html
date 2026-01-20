@@ -4925,7 +4925,7 @@
 
         const $ = s => document.querySelector(s);
         const fmt = n => { if (typeof n !== 'number' || isNaN(n)) return "0"; if (n < 1000) return Math.floor(n); const s = ["", "k", "m", "b", "t", "aa"]; const i = Math.floor(Math.log10(n) / 3); return (n / Math.pow(1000, i)).toFixed(1) + (s[i] || ""); };
-        const CFG = { shaftH: 160, shaftGap: 20, baseCostShaft: 500, baseCostEle: 50, baseCostWH: 100 };
+        const CFG = { shaftH: 160, shaftGap: 20, baseCostShaft: 525, baseCostEle: 50, baseCostWH: 100 };
 
         /* --- MANAGER SYSTEM LOGIC --- */
         const MANAGERS = {

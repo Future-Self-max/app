@@ -547,24 +547,35 @@
             right: auto;
             left: 50%;
             transform: translateX(-50%);
-            width: 260px;
+            width: 320px;
+            /* Increased from 260px */
             /* Wider for desktop text */
-            background: rgba(33, 33, 33, 0.95);
-            border: 1px solid var(--accent-gold);
+            background: linear-gradient(145deg, #2c2c2c, #1a1a1a);
+            /* Premium gradient */
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            /* Refined border */
             border-radius: 12px;
-            z-index: 4000;
+            z-index: 6000;
+            /* Above UI layer (5000) */
             font-family: var(--font-body);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+            /* Deeper shadow */
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             backdrop-filter: blur(5px);
             display: flex;
             flex-direction: column;
+            pointer-events: auto;
+            /* Ensure it captures events */
+            user-select: none;
+            /* Prevent accidental text selection while scrolling */
         }
 
         .mission-widget.expanded {
             height: auto;
             max-height: 80vh;
+            overflow-y: auto;
+            /* Support scrolling on desktop if needed */
         }
 
         /* MOBILE OVERRIDES (Includes Landscape Phones) */
@@ -593,23 +604,45 @@
                 transform: scale(1.0) !important;
                 /* RESET SCALE */
                 transform-origin: top right !important;
-                width: 300px !important;
-                /* Wider */
+                width: 240px !important;
+                /* Shrunk from 300px */
                 height: auto !important;
-                max-height: 60vh !important;
+                max-height: 70vh !important;
+                /* Adjusted */
                 border-radius: 12px;
                 justify-content: flex-start;
                 align-items: stretch;
-                overflow-y: auto;
+                overflow-y: hidden !important;
+                /* Scrolling disabled */
             }
 
             .mission-widget.expanded .mission-item {
-                padding: 10px;
-                gap: 5px;
+                padding: 4px 8px;
+                /* Shrunk padding */
+                gap: 2px;
             }
 
             .mission-widget.expanded .mission-name {
-                font-size: 0.9rem;
+                font-size: 0.75rem;
+                /* Shrunk font */
+            }
+
+            .mission-widget.expanded .mission-list-container {
+                padding: 4px;
+                /* Shrunk padding */
+                gap: 4px;
+            }
+
+            .mission-widget.expanded .mission-reward {
+                font-size: 0.7rem;
+                /* Shrunk reward text */
+                padding: 1px 4px;
+            }
+
+            .btn-claim-mission {
+                padding: 4px 8px;
+                font-size: 0.75rem;
+                margin-top: 2px;
             }
 
             /* HIDE CONTENT WHEN COLLAPSED */
@@ -1664,7 +1697,8 @@
         /* GRID SYSTEM - Relative to WRAPPER now */
         .game-grid {
             position: absolute;
-            top: 180px;
+            top: 210px;
+            /* SHIFTED DOWN: From 180px to 210px to be inside the dirt */
             left: 0;
             width: 100%;
             height: 100%;
@@ -1915,110 +1949,136 @@
 
         .mine-shaft {
             height: 160px;
-            /* DEEP CAVE BACKGROUND - Rough Stone Texture */
-            background-color: #3E2723;
+            /* DEEP CAVE BACKGROUND - Advanced Multi-layered Rock Texture */
+            background-color: #2D1D1A;
             background-image:
-                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 60%),
-                repeating-radial-gradient(circle at 10% 10%, rgba(0, 0, 0, 0.2) 0px, transparent 10px),
-                repeating-radial-gradient(circle at 90% 90%, rgba(0, 0, 0, 0.2) 0px, transparent 10px),
-                linear-gradient(to bottom, #2d1d1a, #3E2723, #1a100e);
+                /* 1. Fine Dust/Sparkle Layer */
+                radial-gradient(1px 1px at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 100%),
+                radial-gradient(1px 1px at 50% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 80% 40%, rgba(255, 255, 255, 0.08) 0%, transparent 100%),
+                /* 2. Large Rock Formations (Shadows/Highlights) */
+                radial-gradient(circle at 10% 20%, rgba(0, 0, 0, 0.4) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 0, 0, 0.4) 0%, transparent 40%),
+                /* 3. Horizontal Geological Strata (Subtle) */
+                repeating-linear-gradient(rgba(0, 0, 0, 0.05) 0px, transparent 2px, rgba(0, 0, 0, 0.05) 4px, transparent 10px),
+                /* 4. Deep Ambience */
+                linear-gradient(to bottom, #1a0f0d 0%, #2D1D1A 20%, #2D1D1A 80%, #0d0807 100%);
             border-radius: 12px;
             position: relative;
             margin-right: -6px;
-            border: 8px solid #1a0f0d;
+            border: 4px solid #140b07;
             border-left: 12px solid #5D4037;
-            /* Pseudo-3D effect on left wall */
+            /* Pseudo-3D Depth Perspective */
             box-shadow:
-                inset 0 0 80px rgba(0, 0, 0, 0.9),
-                inset 10px 10px 30px rgba(0, 0, 0, 0.7),
-                0 10px 30px rgba(0, 0, 0, 0.6);
+                inset 0 0 100px rgba(0, 0, 0, 0.95),
+                inset 15px 15px 40px rgba(0, 0, 0, 0.8),
+                0 15px 35px rgba(0, 0, 0, 0.7);
             display: flex;
             align-items: center;
             overflow: hidden;
         }
 
-        /* Pillars / Supports */
+        /* Industrial Structural Pillars */
         .mine-shaft::before {
             content: '';
             position: absolute;
             left: 50px;
             top: 0;
             bottom: 0;
-            width: 20px;
-            background: repeating-linear-gradient(90deg, #5D4037, #4E342E 2px, #3E2723 4px);
-            box-shadow: 5px 0 10px rgba(0, 0, 0, 0.6), inset 2px 0 2px rgba(255, 255, 255, 0.1);
-            z-index: 1;
+            width: 24px;
+            background:
+                linear-gradient(to right, #3E2723 0%, #5D4037 30%, #4E342E 50%, #3E2723 100%),
+                repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0, 0, 0, 0.1) 4px, rgba(0, 0, 0, 0.1) 5px);
+            box-shadow:
+                8px 0 15px rgba(0, 0, 0, 0.7),
+                inset 2px 0 3px rgba(255, 255, 255, 0.1),
+                inset -2px 0 3px rgba(0, 0, 0, 0.3);
+            z-index: 10;
         }
 
-        /* Second Pillar */
         .mine-shaft::after {
             content: '';
             position: absolute;
-            left: 300px;
+            left: 320px;
             top: 0;
             bottom: 0;
-            width: 20px;
-            background: repeating-linear-gradient(90deg, #5D4037, #4E342E 2px, #3E2723 4px);
-            box-shadow: 5px 0 10px rgba(0, 0, 0, 0.6), inset 2px 0 2px rgba(255, 255, 255, 0.1);
-            z-index: 1;
+            width: 24px;
+            background:
+                linear-gradient(to right, #3E2723 0%, #5D4037 30%, #4E342E 50%, #3E2723 100%),
+                repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0, 0, 0, 0.1) 4px, rgba(0, 0, 0, 0.1) 5px);
+            box-shadow:
+                8px 0 15px rgba(0, 0, 0, 0.7),
+                inset 2px 0 3px rgba(255, 255, 255, 0.1),
+                inset -2px 0 3px rgba(0, 0, 0, 0.3);
+            z-index: 10;
         }
 
         .shaft-tunnel {
             position: absolute;
             left: 100px;
-            top: 20px;
+            top: 15px;
             width: 480px;
-            height: 70px;
-            /* DEEP EARTH TEXTURE */
-            background-color: #2C1810;
+            height: 85px;
+            /* DEEP ATMOSPHERIC TUNNEL */
+            background-color: #1A0F0A;
             background-image:
-                /* Rough Spots */
-                repeating-radial-gradient(circle at 10% 10%, rgba(0, 0, 0, 0.2) 0px, transparent 8px),
-                repeating-radial-gradient(circle at 90% 90%, rgba(0, 0, 0, 0.1) 0px, transparent 12px),
-                /* Horizontal Rock Strata */
-                linear-gradient(to right, transparent, rgba(0, 0, 0, 0.05) 50%, transparent),
-                /* Base Tunnel Gradient */
-                linear-gradient(to bottom, #2C1810, #1A0F0A);
-            background-size: 40px 40px, 60px 60px, 100% 100%, 100% 100%;
+                /* Depth occlusion */
+                linear-gradient(to right, rgba(0, 0, 0, 0.4) 0%, transparent 15%, transparent 85%, rgba(0, 0, 0, 0.4) 100%),
+                /* Top/Bottom highlight for 3D feel */
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 0%, transparent 20%, transparent 80%, rgba(0, 0, 0, 0.4) 100%),
+                /* Rough ceiling shadows */
+                repeating-radial-gradient(circle at 50% -10%, rgba(0, 0, 0, 0.4) 0%, transparent 20px),
+                /* Rock pattern */
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.1"><path d="M0 50 Q25 0 50 50 T100 50" stroke="white" fill="none"/></svg>');
+            background-size: 100% 100%, 100% 100%, 80px 100%, 200px 200px;
             box-shadow:
-                inset 0 8px 15px rgba(0, 0, 0, 1),
-                /* Deep top shadow */
-                inset 0 -4px 6px rgba(121, 85, 72, 0.05);
-            border-radius: 8px;
-            border: 2px solid #140b07;
+                inset 0 15px 30px rgba(0, 0, 0, 0.9),
+                inset 0 -5px 15px rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            border: 3px solid #140b07;
+            overflow: hidden;
         }
 
-        /* Wooden Support Beams - More Realistic */
-        .shaft-tunnel::before {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: 100px;
-            width: 14px;
-            height: calc(100% + 10px);
-            background: linear-gradient(to right, #5D4037, #795548, #5D4037);
-            box-shadow:
-                inset 2px 0 4px rgba(0, 0, 0, 0.4),
-                inset -2px 0 4px rgba(0, 0, 0, 0.3),
-                2px 0 6px rgba(0, 0, 0, 0.5);
-            border-radius: 2px;
-            border: 1px solid #3E2723;
-        }
-
+        /* Heavy Duty Support Beams with detailed textures */
+        .shaft-tunnel::before,
         .shaft-tunnel::after {
             content: '';
             position: absolute;
-            top: -5px;
-            left: 300px;
-            width: 14px;
-            height: calc(100% + 10px);
-            background: linear-gradient(to right, #5D4037, #795548, #5D4037);
+            top: -10px;
+            width: 20px;
+            height: calc(100% + 20px);
+            background:
+                linear-gradient(to right, #5D4037, #795548 30%, #8D6E63 50%, #5D4037 100%),
+                repeating-linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) 2px, transparent 2px, transparent 10px);
+            /* Grain */
             box-shadow:
-                inset 2px 0 4px rgba(0, 0, 0, 0.4),
-                inset -2px 0 4px rgba(0, 0, 0, 0.3),
-                2px 0 6px rgba(0, 0, 0, 0.5);
-            border-radius: 2px;
+                inset 2px 2px 4px rgba(255, 255, 255, 0.15),
+                inset -2px -2px 4px rgba(0, 0, 0, 0.5),
+                4px 0 10px rgba(0, 0, 0, 0.6);
+            border-radius: 4px;
             border: 1px solid #3E2723;
+            z-index: 5;
+        }
+
+        .shaft-tunnel::before {
+            left: 100px;
+        }
+
+        .shaft-tunnel::after {
+            left: 320px;
+        }
+
+        /* Cross Beam */
+        .shaft-tunnel .cross-beam {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            right: 0;
+            height: 12px;
+            background: linear-gradient(to bottom, #5D4037, #4E342E);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            z-index: 4;
+            opacity: 0.8;
         }
 
         /* 3D FLOOR FOR MINE SHAFT */
@@ -2114,45 +2174,40 @@
             transform: none;
         }
 
-        /* EXTREME INDUSTRIAL BIN BOX */
+        /* HEAVY INDUSTRIAL RESOURCE BIN */
         .bin-box {
             position: absolute;
             left: 135px;
-            /* Slightly adjusted for wider stance */
             bottom: 25px;
-            width: 80px;
-            height: 55px;
-            /* Industrial Dark Metal Base */
+            width: 85px;
+            height: 60px;
             background:
-                /* Rivets/Bolts Pattern */
-                radial-gradient(circle at 6px 6px, #cfd8dc 2px, transparent 2.5px),
-                radial-gradient(circle at 74px 6px, #cfd8dc 2px, transparent 2.5px),
-                radial-gradient(circle at 6px 49px, #cfd8dc 2px, transparent 2.5px),
-                radial-gradient(circle at 74px 49px, #cfd8dc 2px, transparent 2.5px),
-                /* Vertical Ribs */
-                linear-gradient(90deg, transparent 20px, rgba(0, 0, 0, 0.4) 20px, rgba(0, 0, 0, 0.4) 22px, rgba(255, 255, 255, 0.1) 22px, rgba(255, 255, 255, 0.1) 23px, transparent 23px),
-                linear-gradient(90deg, transparent 58px, rgba(0, 0, 0, 0.4) 58px, rgba(0, 0, 0, 0.4) 60px, rgba(255, 255, 255, 0.1) 60px, rgba(255, 255, 255, 0.1) 61px, transparent 61px),
-                /* Base Metal Gradient */
-                linear-gradient(to bottom, #455A64, #263238);
-
-            border: 2px solid #263238;
-            border-top: 4px solid #546E7A;
-            /* Reinforced Rim */
-            border-bottom: 4px solid #1c252a;
-            /* Heavy Base */
-            border-radius: 4px 4px 8px 8px;
-
+                /* Industrial Bolt Pattern */
+                radial-gradient(circle at 6px 6px, #90A4AE 2px, transparent 3px),
+                radial-gradient(circle at 79px 6px, #90A4AE 2px, transparent 3px),
+                radial-gradient(circle at 6px 54px, #90A4AE 2px, transparent 3px),
+                radial-gradient(circle at 79px 54px, #90A4AE 2px, transparent 3px),
+                /* Reinforced Panels */
+                linear-gradient(90deg, #263238 2px, transparent 2px, transparent 83px, #263238 85px),
+                /* Main Texture */
+                linear-gradient(to right, #37474F, #455A64 50%, #37474F);
+            border: 2px solid #1c252a;
+            border-top: 5px solid #78909C;
+            /* Heavy metal lip */
+            border-radius: 4px;
             box-shadow:
-                inset 0 0 15px rgba(0, 0, 0, 0.8),
-                /* Deep inner shadow */
-                0 5px 10px rgba(0, 0, 0, 0.6);
-            /* Drop shadow */
-
+                0 8px 15px rgba(0, 0, 0, 0.7),
+                inset 0 0 10px rgba(255, 255, 255, 0.05);
             display: flex;
             align-items: flex-end;
             justify-content: center;
-            z-index: 5;
+            z-index: 10;
             overflow: hidden;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .bin-box:hover {
+            transform: scale(1.05) translateY(-2px);
         }
 
         /* RIGHT SIDE OVERRIDES */
@@ -2327,27 +2382,33 @@
             right: 0;
             top: 5px;
             bottom: 5px;
-            width: 100px;
-            /* Beefier vein */
+            width: 110px;
+            /* DEEP FRACTURED ROCK WITH MULTI-FACETED ORE */
             background:
-                /* Cracks */
-                radial-gradient(circle at 30% 20%, rgba(0, 0, 0, 0.3) 0%, transparent 20%),
-                radial-gradient(circle at 70% 80%, rgba(0, 0, 0, 0.3) 0%, transparent 20%),
-                /* Gold Veins */
-                repeating-linear-gradient(115deg, transparent, transparent 20px, rgba(255, 215, 0, 0.3) 22px, pixelated),
-                /* Rock Texture */
-                linear-gradient(135deg, #4E342E, #2d1d1a);
-
-            border-left: 0;
-            border-radius: 40% 0 0 40% / 50% 0 0 50%;
-            /* Rough shape */
+                /* 1. Glowing Crystalline Veins (Multi-colored) */
+                radial-gradient(circle at 30% 20%, rgba(255, 215, 0, 0.6) 0%, transparent 15%),
+                radial-gradient(circle at 70% 50%, rgba(0, 229, 255, 0.5) 0%, transparent 12%),
+                radial-gradient(circle at 40% 80%, rgba(105, 240, 174, 0.5) 0%, transparent 10%),
+                /* 2. Heavy Fractures */
+                repeating-linear-gradient(135deg, transparent, transparent 15px, rgba(0, 0, 0, 0.5) 16px, transparent 17px),
+                repeating-linear-gradient(45deg, transparent, transparent 25px, rgba(0, 0, 0, 0.3) 26px, transparent 27px),
+                /* 3. Base Rock Texture */
+                linear-gradient(135deg, #3E2723, #1a0f0d);
+            border-left: 3px solid #140b07;
+            border-radius: 45% 5% 5% 45% / 50% 10% 10% 50%;
             box-shadow:
-                inset 10px 0 20px rgba(0, 0, 0, 0.6),
-                /* Inner depth */
-                -5px 0 15px rgba(0, 0, 0, 0.5);
-            /* Drop shadow */
-            z-index: 3;
+                inset 15px 0 25px rgba(0, 0, 0, 0.8),
+                -8px 0 20px rgba(0, 0, 0, 0.6);
+            z-index: 15;
             overflow: hidden;
+        }
+
+        .rock-face::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            animation: glint-sweep 3s infinite linear;
         }
 
         /* Gold Sparkles embedded */
@@ -2390,29 +2451,113 @@
 
         .torch-flame {
             position: absolute;
-            top: -5px;
-            left: -2px;
-            width: 14px;
-            height: 20px;
-            background: radial-gradient(circle at center bottom, #FFF 10%, #FFD600 40%, #FF6F00 70%, transparent 90%);
+            top: -8px;
+            left: -3px;
+            width: 16px;
+            height: 24px;
+            background: radial-gradient(circle at center bottom, #FFF 10%, #FFD600 30%, #FF6F00 60%, transparent 90%);
             border-radius: 50% 50% 20% 20%;
-            filter: blur(1px);
-            animation: flameFlicker 0.1s infinite alternate ease-in-out;
+            filter: blur(1.5px);
+            animation: flameFlicker 0.15s infinite alternate ease-in-out, flameSway 3s infinite ease-in-out;
             transform-origin: center bottom;
-            opacity: 0.9;
-            box-shadow: 0 0 10px #FF6F00;
+            opacity: 0.95;
+            box-shadow: 0 0 15px rgba(255, 111, 0, 0.8), 0 0 30px rgba(255, 69, 0, 0.4);
         }
 
         .torch-glow {
             position: absolute;
-            top: -60px;
-            left: -65px;
-            width: 140px;
-            height: 140px;
-            background: radial-gradient(circle, rgba(255, 100, 0, 0.3) 0%, rgba(150, 50, 0, 0.1) 55%, transparent 75%);
-            animation: glowPulse 2s infinite alternate ease-in-out;
-            mix-blend-mode: screen;
+            top: -70px;
+            left: -72px;
+            width: 160px;
+            height: 160px;
+            background: radial-gradient(circle, rgba(255, 120, 0, 0.35) 0%, rgba(180, 60, 0, 0.1) 50%, transparent 80%);
+            animation: glowPulse 1.5s infinite alternate ease-in-out;
+            mix-blend-mode: color-dodge;
             z-index: -1;
+            filter: blur(5px);
+        }
+
+        /* --- ATMOSPHERIC EFFECTS --- */
+        .shaft-tunnel::after {
+            /* We use the ::after of tunnel for dust particles if not already used */
+        }
+
+        /* Continuous Drip Animation */
+        .cave-drip {
+            position: absolute;
+            width: 2px;
+            height: 4px;
+            background: rgba(100, 200, 255, 0.6);
+            border-radius: 50%;
+            opacity: 0;
+            top: 15px;
+            animation: caveDrip 4s infinite linear;
+            z-index: 3;
+        }
+
+        /* Fine Dust Particles */
+        .dust-cloud {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 4;
+            opacity: 0.4;
+            background-image:
+                radial-gradient(1px 1px at 10% 20%, #fff 100%, transparent 0),
+                radial-gradient(1.5px 1.5px at 40% 60%, #fff 100%, transparent 0),
+                radial-gradient(1px 1px at 80% 30%, #fff 100%, transparent 0),
+                radial-gradient(1.2px 1.2px at 30% 80%, #fff 100%, transparent 0),
+                radial-gradient(1px 1px at 70% 70%, #fff 100%, transparent 0);
+            background-size: 200px 200px;
+            animation: dustFloat 20s infinite linear;
+        }
+
+        @keyframes flameSway {
+
+            0%,
+            100% {
+                transform: rotate(-2deg);
+            }
+
+            50% {
+                transform: rotate(2deg);
+            }
+        }
+
+        @keyframes caveDrip {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0;
+            }
+
+            5% {
+                opacity: 0.8;
+            }
+
+            15% {
+                transform: translateY(60px) scale(0.8, 1.2);
+                opacity: 0.8;
+            }
+
+            20% {
+                transform: translateY(70px) scale(1.5, 0.5);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(70px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes dustFloat {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 100px -200px;
+            }
         }
 
         @keyframes flameFlicker {
@@ -2459,7 +2604,8 @@
             width: 100px;
             height: 100px;
             pointer-events: none;
-            z-index: 40;
+            z-index: 8;
+            /* REDUCED: From 40 to 8 to be behind beams (z-index 10) */
             transition: left 0.1s linear;
         }
 
@@ -2684,12 +2830,66 @@
             text-align: center;
             cursor: pointer;
             transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
         }
 
         .shop-item:hover {
             transform: scale(1.05);
             border-color: var(--accent-gold);
             box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
+        }
+
+        .shop-info-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            background: #00BCD4;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 10;
+            cursor: help;
+            transition: all 0.2s;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .shop-info-btn:hover {
+            background: #4DD0E1;
+            transform: scale(1.2);
+        }
+
+        .shop-info-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            color: #eee;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.85rem;
+            z-index: 20;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 9px;
+            line-height: 1.3;
+        }
+
+        .shop-info-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .shop-item.boost-active {
@@ -3614,6 +3814,187 @@
                 font-size: 1.8rem !important;
             }
         }
+
+        /* --- CUSTOM CONFIRMATION MODAL --- */
+        .confirm-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 15000;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .confirm-box {
+            background: linear-gradient(145deg, #37474F, #263238);
+            border: 3px solid var(--accent-gold);
+            border-radius: 20px;
+            padding: 30px 40px;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 193, 7, 0.2);
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .confirm-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .confirm-title {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            color: #FFF;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .confirm-message {
+            color: #B0BEC5;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .confirm-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .confirm-btn {
+            padding: 12px 30px;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .confirm-btn-yes {
+            background: linear-gradient(135deg, #43A047, #2E7D32);
+            color: #FFF;
+            box-shadow: 0 4px 15px rgba(67, 160, 71, 0.4);
+        }
+
+        .confirm-btn-yes:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 160, 71, 0.6);
+        }
+
+        .confirm-btn-no {
+            background: linear-gradient(135deg, #546E7A, #37474F);
+            color: #FFF;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .confirm-btn-no:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #78909C, #546E7A);
+        }
+
+        /* --- TOAST NOTIFICATIONS --- */
+        .toast-container {
+            position: fixed;
+            bottom: 120px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 16000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: rgba(33, 33, 33, 0.95);
+            border-radius: 12px;
+            padding: 14px 24px;
+            color: #FFF;
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            animation: toastSlideIn 0.3s ease-out, toastSlideOut 0.3s ease-in 2.7s forwards;
+            pointer-events: auto;
+        }
+
+        @keyframes toastSlideIn {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes toastSlideOut {
+            from {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+        }
+
+        .toast-error {
+            border-left: 4px solid #E53935;
+        }
+
+        .toast-success {
+            border-left: 4px solid #43A047;
+        }
+
+        .toast-info {
+            border-left: 4px solid #1E88E5;
+        }
+
+        .toast-icon {
+            font-size: 1.4rem;
+        }
     </style>
 </head>
 
@@ -4060,146 +4441,103 @@
     </div>
 
     <style>
-        /* --- TUTORIAL --- */
+        /* --- REDESIGNED TUTORIAL --- */
         .tutorial-pointer {
             position: fixed;
-            font-size: 4rem;
-            z-index: 10000;
+            z-index: 20000;
+            font-size: 3.5rem;
             pointer-events: none;
-            animation: pointer-bounce 1s infinite ease-in-out;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
-            transition: all 0.3s;
+            animation: modern-pointer-bounce 1s infinite cubic-bezier(0.36, 0, 0.64, 1);
+            filter: drop-shadow(0 0 15px rgba(255, 213, 79, 0.6)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+            color: #FFD54F;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes pointer-bounce {
+        @keyframes modern-pointer-bounce {
 
             0%,
             100% {
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
 
             50% {
-                transform: translateY(-20px);
+                transform: translateY(-20px) scale(1.1);
             }
-        }
-
-        #orientation-warning {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #263238;
-            z-index: 20000;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #FFC107;
-        }
-
-        /* Show only on portrait mobile */
-        @media screen and (orientation: portrait) {
-            #orientation-warning {
-                display: flex;
-            }
-        }
-
-        /* Ensure UI Layer passes clicks */
-        #ui-layer {
-            pointer-events: none;
-        }
-
-        #ui-layer>* {
-            pointer-events: auto;
         }
 
         .btn-skip-tutorial {
             position: fixed;
-            top: 90px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            border: 2px solid white;
-            padding: 8px 16px;
-            border-radius: 20px;
+            top: 100px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: rgba(255, 255, 255, 0.8);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 22px;
+            border-radius: 30px;
             cursor: pointer;
-            z-index: 10000;
-            font-family: 'Fredoka One', cursive;
-            font-size: 0.9rem;
-            transition: transform 0.2s;
+            z-index: 15000;
+            font-family: var(--font-heading);
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .btn-skip-tutorial:hover {
-            transform: scale(1.05);
-            background: rgba(255, 50, 50, 0.8);
+            background: rgba(255, 70, 70, 0.2);
+            border-color: rgba(255, 70, 70, 0.5);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 70, 70, 0.3);
         }
 
-        /* TUTORIAL POINTER (Missing in previous step) */
-        .tutorial-pointer {
-            position: fixed;
-            z-index: 10000;
-            font-size: 3rem;
-            pointer-events: none;
-            animation: bouncePointer 1s infinite;
-            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.5));
-            /* Ensure it is visible on top of everything */
-            color: white;
-            text-shadow: 0 0 5px black;
-        }
-
-        @keyframes bouncePointer {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-
-        /* NEW TUTORIAL STYLES */
         .tutorial-welcome {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: radial-gradient(circle at center, rgba(38, 50, 56, 0.95) 0%, rgba(0, 0, 0, 0.98) 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 11000;
-            color: white;
-            font-family: 'Fredoka One', cursive;
-            font-size: 3rem;
+            z-index: 25000;
+            color: #FFD54F;
+            font-family: var(--font-heading);
+            font-size: 4rem;
             text-align: center;
-            animation: fadeInOut 2s forwards;
+            text-shadow: 0 0 20px rgba(255, 213, 79, 0.4), 0 5px 15px rgba(0, 0, 0, 0.5);
+            animation: welcomeFadeIn 2.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
             pointer-events: none;
         }
 
-        @keyframes fadeInOut {
+        @keyframes welcomeFadeIn {
             0% {
                 opacity: 0;
-                transform: scale(0.9);
+                transform: scale(0.8) translateY(20px);
+                filter: blur(10px);
             }
 
-            20% {
+            15% {
                 opacity: 1;
-                transform: scale(1);
+                transform: scale(1) translateY(0);
+                filter: blur(0);
             }
 
-            80% {
+            85% {
                 opacity: 1;
-                transform: scale(1);
+                transform: scale(1) translateY(0);
+                filter: blur(0);
             }
 
             100% {
                 opacity: 0;
-                transform: scale(1.1);
+                transform: scale(1.1) translateY(-30px);
+                filter: blur(5px);
             }
         }
 
@@ -4207,35 +4545,75 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            width: 80%;
-            max-width: 400px;
+            width: 90%;
+            max-width: 420px;
             transform: translate(-50%, -50%);
-            background: #263238;
-            border: 4px solid #FFD54F;
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, rgba(38, 50, 56, 0.9) 0%, rgba(21, 26, 29, 0.95) 100%);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 213, 79, 0.3);
+            color: #fff;
+            padding: 30px;
+            border-radius: 24px;
+            font-family: var(--font-body);
             text-align: center;
-            z-index: 11000;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            z-index: 22000;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 213, 79, 0.15);
+            animation: tutorialShow 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes tutorialShow {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -40%) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
         }
 
         .tutorial-overlay-text h3 {
-            margin-top: 0;
+            margin: 0 0 15px 0;
             color: #FFD54F;
-            font-family: 'Fredoka One', cursive;
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .tutorial-overlay-text p {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #CFD8DC;
+            margin-bottom: 25px;
         }
 
         .tutorial-close-btn {
-            background: #F44336;
-            color: white;
+            background: linear-gradient(to bottom, #FFD54F, #FFA000);
+            color: #263238;
             border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
+            padding: 12px 35px;
+            border-radius: 40px;
+            font-family: var(--font-heading);
             font-weight: bold;
-            margin-top: 15px;
+            font-size: 1.1rem;
             cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(255, 160, 0, 0.4);
+            text-transform: uppercase;
+        }
+
+        .tutorial-close-btn:hover {
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 160, 0, 0.6);
+            filter: brightness(1.1);
+        }
+
+        .tutorial-close-btn:active {
+            transform: scale(0.95);
         }
 
         .mission-widget.hidden {
@@ -4244,32 +4622,42 @@
 
         /* Pulse Animation for Upgrade Button */
         .btn-pulse {
-            animation: btn-pulse-anim 1s infinite;
-            border: 2px solid #00E676 !important;
+            animation: btn-pulse-anim 1.5s infinite ease-in-out;
+            border: 2px solid #69F0AE !important;
+            box-shadow: 0 0 20px rgba(105, 240, 174, 0.4);
         }
 
         @keyframes btn-pulse-anim {
-            0% {
+
+            0%,
+            100% {
                 transform: scale(1);
-                box-shadow: 0 0 0 rgba(0, 230, 118, 0.4);
+                box-shadow: 0 0 10px rgba(105, 240, 174, 0.3);
             }
 
             50% {
                 transform: scale(1.05);
-                box-shadow: 0 0 15px rgba(0, 230, 118, 0.8);
-            }
-
-            100% {
-                transform: scale(1);
-                box-shadow: 0 0 0 rgba(0, 230, 118, 0.4);
+                box-shadow: 0 0 25px rgba(105, 240, 174, 0.6);
             }
         }
 
-        /* Mobile Optimization for Popup */
-        @media (max-height: 500px) {
+        /* Responsive Mobile Tweak */
+        @media (max-height: 600px) {
             .tutorial-overlay-text {
-                top: 20%;
-                transform: translate(-50%, 0);
+                padding: 20px;
+                max-width: 360px;
+            }
+
+            .tutorial-overlay-text h3 {
+                font-size: 1.5rem;
+            }
+
+            .tutorial-overlay-text p {
+                font-size: 0.95rem;
+            }
+
+            .tutorial-welcome {
+                font-size: 2.5rem;
             }
         }
     </style>
@@ -4923,8 +5311,27 @@
                 tunnel.className = 'shaft-tunnel';
                 this.el.appendChild(tunnel);
 
+                // Add Cross Beam for structural detail
+                let cross = document.createElement('div');
+                cross.className = 'cross-beam';
+                tunnel.appendChild(cross);
+
+                // Add Atmospheric Dust Cloud
+                let dust = document.createElement('div');
+                dust.className = 'dust-cloud';
+                tunnel.appendChild(dust);
+
+                // Add random Cave Drips
+                for (let i = 0; i < 2; i++) {
+                    let drip = document.createElement('div');
+                    drip.className = 'cave-drip';
+                    drip.style.left = (150 + Math.random() * 300) + 'px';
+                    drip.style.animationDelay = (Math.random() * 4) + 's';
+                    tunnel.appendChild(drip);
+                }
+
                 // Add Flickering Torches on the wooden beams
-                [100, 300].forEach(tx => {
+                [100, 320].forEach(tx => {
                     let torch = document.createElement('div');
                     torch.className = 'torch';
                     // Mirror position for right side
@@ -6615,8 +7022,8 @@
                 this.el.classList.add('running');
 
                 // Visual Text
-                this.manager.game.createFloatText('ENTKOMMEN!', this.x, this.y - 100);
-                this.manager.game.createFloatText('Geld Verloren...', this.x, this.y - 130);
+                this.manager.game.createFloatText('ESCAPED!', this.x, this.y - 100);
+                this.manager.game.createFloatText('Money Lost...', this.x, this.y - 130);
             }
 
             die() {
@@ -6647,7 +7054,7 @@
                     const popup = document.createElement('div');
                     popup.className = 'recovery-popup';
                     popup.innerHTML = `
-                        <div>💰 $${fmt(refund)} Zurück!</div>
+                        <div>💰 $${fmt(refund)} Recovered!</div>
                         <div class="bonus">💀 KILL BONUS! +$${fmt(bonus)}</div>
                     `;
                     popup.style.left = (this.x - 50) + 'px';
@@ -7177,6 +7584,48 @@
 
                 window.addEventListener('resize', () => this.handleResize());
                 this.handleResize();
+
+                // Create Toast Container
+                this.toastContainer = document.createElement('div');
+                this.toastContainer.className = 'toast-container';
+                document.body.appendChild(this.toastContainer);
+            }
+
+            showToast(message, type = 'info') {
+                const icons = { error: '❌', success: '✅', info: 'ℹ️' };
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                toast.innerHTML = `<span class="toast-icon">${icons[type]}</span><span>${message}</span>`;
+                this.toastContainer.appendChild(toast);
+                setTimeout(() => toast.remove(), 3000);
+            }
+
+            showConfirm(title, message, icon = '⚠️') {
+                return new Promise((resolve) => {
+                    const overlay = document.createElement('div');
+                    overlay.className = 'confirm-overlay';
+                    overlay.innerHTML = `
+                        <div class="confirm-box">
+                            <div class="confirm-icon">${icon}</div>
+                            <div class="confirm-title">${title}</div>
+                            <div class="confirm-message">${message}</div>
+                            <div class="confirm-buttons">
+                                <button class="confirm-btn confirm-btn-no">Cancel</button>
+                                <button class="confirm-btn confirm-btn-yes">Confirm</button>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(overlay);
+
+                    overlay.querySelector('.confirm-btn-yes').onclick = () => {
+                        overlay.remove();
+                        resolve(true);
+                    };
+                    overlay.querySelector('.confirm-btn-no').onclick = () => {
+                        overlay.remove();
+                        resolve(false);
+                    };
+                });
             }
 
             addMoney(amount) {
@@ -7680,6 +8129,17 @@
                 this.renderModal();
             }
 
+            toggleShopInfo(event, type) {
+                event.stopPropagation();
+                const item = event.target.closest('.shop-item');
+                const overlay = item.querySelector('.shop-info-overlay');
+                overlay.classList.toggle('visible');
+                // Hide after 5 seconds automatically if user forgets
+                if (overlay.classList.contains('visible')) {
+                    setTimeout(() => overlay.classList.remove('visible'), 5000);
+                }
+            }
+
 
             openSettings() {
                 this.modalMode = 'settings';
@@ -7868,23 +8328,31 @@
                     $('#popup-stats').innerHTML = `
                         <div class="shop-grid">
                             <div class="shop-item" onclick="game.buyBoost('speed')">
+                                <div class="shop-info-btn" onclick="game.toggleShopInfo(event, 'speed')">i</div>
+                                <div class="shop-info-overlay">Increases the speed of miners, elevator, and warehouse. More cycles = more money!</div>
                                 <div class="shop-item-icon">⚡</div>
                                 <div class="shop-item-name">Speed (+10%)</div>
                                 <div style="font-size:0.8rem; color:#B0BEC5; margin-bottom:5px;">Lvl ${this.boosts.speed}/10 (${(1 + this.boosts.speed * 0.1).toFixed(1)}x)</div>
                                 <div class="shop-item-price" style="${this.boosts.speed >= 10 ? 'color:#FFD54F' : ''}">${this.boosts.speed >= 10 ? 'MAX' : '💎 10'}</div>
                             </div>
                             <div class="shop-item" onclick="game.buyBoost('earnings')">
+                                <div class="shop-info-btn" onclick="game.toggleShopInfo(event, 'earnings')">i</div>
+                                <div class="shop-info-overlay">Permanently boosts all earnings by 10% per level. Stackable up to 2x.</div>
                                 <div class="shop-item-icon">💰</div>
                                 <div class="shop-item-name">Profit (+10%)</div>
                                 <div style="font-size:0.8rem; color:#B0BEC5; margin-bottom:5px;">Lvl ${this.boosts.earnings}/10 (${(1 + this.boosts.earnings * 0.1).toFixed(1)}x)</div>
                                 <div class="shop-item-price" style="${this.boosts.earnings >= 10 ? 'color:#FFD54F' : ''}">${this.boosts.earnings >= 10 ? 'MAX' : '💎 10'}</div>
                             </div>
                             <div class="shop-item" onclick="game.instantCollect()">
+                                <div class="shop-info-btn" onclick="game.toggleShopInfo(event, 'instant')">i</div>
+                                <div class="shop-info-overlay">Immediately grabs all gold currently in shafts and moves it to your balance.</div>
                                 <div class="shop-item-icon">🚀</div>
                                 <div class="shop-item-name">Instant Collect</div>
                                 <div class="shop-item-price">💎 5</div>
                             </div>
                             <div class="shop-item" onclick="game.buyManager()">
+                                <div class="shop-info-btn" onclick="game.toggleShopInfo(event, 'manager')">i</div>
+                                <div class="shop-info-overlay">Increases your total manager capacity. Hired managers are activated automatically!</div>
                                 <div class="shop-item-icon">👔</div>
                                 <div class="shop-item-name">+1 Manager</div>
                                 <div class="shop-item-price">💎 50</div>
@@ -7913,7 +8381,7 @@
                         </div>
                         
                         <div class="settings-row">
-                            <span style="font-size: 0.9rem; color: #B0BEC5;">  Lautstärke</span>
+                            <span style="font-size: 0.9rem; color: #B0BEC5;">  Volume</span>
                             <div class="volume-control">
                                 <input type="range" class="volume-slider" min="0" max="100" value="${Math.round(this.audio.musicVolume * 100)}" 
                                     oninput="game.audio.setMusicVolume(this.value / 100); this.nextElementSibling.innerText = this.value + '%';">
@@ -7927,7 +8395,7 @@
                         </div>
                         
                         <div class="settings-row">
-                            <span style="font-size: 0.9rem; color: #B0BEC5;">  Lautstärke</span>
+                            <span style="font-size: 0.9rem; color: #B0BEC5;">  Volume</span>
                             <div class="volume-control">
                                 <input type="range" class="volume-slider" min="0" max="100" value="${Math.round(this.audio.sfxVolume * 100)}" 
                                     oninput="game.audio.setSFXVolume(this.value / 100); this.nextElementSibling.innerText = this.value + '%';">
@@ -8124,7 +8592,7 @@
                     this.audio.playSFX('upgrade');
                     this.renderModal();
                 } else {
-                    alert('Not enough SuperCash! 💎');
+                    this.showToast('Not enough SuperCash! 💎', 'error');
                 }
             }
 
@@ -8140,7 +8608,7 @@
                     this.elevDepot = 0;
                     this.renderModal();
                 } else {
-                    alert('Not enough SuperCash! 💎');
+                    this.showToast('Not enough SuperCash! 💎', 'error');
                 }
             }
             buyManager() {
@@ -8149,7 +8617,7 @@
                     this.warehouse.spawnTransporter();
                     this.renderModal();
                 } else {
-                    alert('Not enough SuperCash! 💎');
+                    this.showToast('Not enough SuperCash! 💎', 'error');
                 }
             }
             toggleSound() {
@@ -8173,11 +8641,12 @@
             }
 
             resetGame() {
-
-                if (confirm('Really clear game progress?')) {
-                    localStorage.removeItem('idleMinerSave');
-                    location.reload();
-                }
+                this.showConfirm('Reset Game', 'Really clear all game progress? This cannot be undone!', '🗑️').then(confirmed => {
+                    if (confirmed) {
+                        localStorage.removeItem('idleMinerSave');
+                        location.reload();
+                    }
+                });
             }
             applyWorldVisuals(idx) {
                 if (!WORLDS[idx]) idx = 0;
@@ -8226,59 +8695,61 @@
             performPrestige(idx) {
                 const w = WORLDS[idx];
                 if (this.money >= w.cost) {
-                    if (confirm(`Switch world to ${w.name}? \nWarning: Everything will be reset! You only keep SuperCash, but your income will be multiplied by x${w.mult}!`)) {
-                        // RESET
-                        this.money = 100;
-                        this.shafts = [];
-                        $('#shafts-anchor').innerHTML = ''; // Clear Left DOM
-                        $('#shafts-right-anchor').innerHTML = ''; // Clear Right DOM
+                    this.showConfirm(`Switch to ${w.name}?`, `⚠️ Warning: Everything will be reset!<br><br>You only keep SuperCash, but your income will be multiplied by <strong style="color:#69F0AE">x${w.mult}</strong>!`, '🚀').then(confirmed => {
+                        if (confirmed) {
+                            // RESET
+                            this.money = 100;
+                            this.shafts = [];
+                            $('#shafts-anchor').innerHTML = ''; // Clear Left DOM
+                            $('#shafts-right-anchor').innerHTML = ''; // Clear Right DOM
 
-                        // Thoroughly clear Logistics areas to prevent duplicate manager slots/lights
-                        const eleShaft = $('.elevator-shaft');
-                        if (eleShaft) {
-                            eleShaft.querySelectorAll('.manager-slot, .light-source').forEach(el => el.remove());
+                            // Thoroughly clear Logistics areas to prevent duplicate manager slots/lights
+                            const eleShaft = $('.elevator-shaft');
+                            if (eleShaft) {
+                                eleShaft.querySelectorAll('.manager-slot, .light-source').forEach(el => el.remove());
+                            }
+                            const whVisual = $('.warehouse-visual');
+                            if (whVisual) {
+                                whVisual.querySelectorAll('.manager-slot, .light-source, .warehouse-window-glow').forEach(el => el.remove());
+                            }
+                            const whFront = $('.warehouse-front');
+                            if (whFront) {
+                                whFront.querySelectorAll('.manager-slot').forEach(el => el.remove());
+                            }
+                            // Clear transporters from surface
+                            const surface = $('#surface-angels-layer');
+                            if (surface) surface.innerHTML = '';
+
+                            this.elevator = new Elevator();
+                            this.warehouse = new Warehouse();
+                            // Reset upgrades visual
+                            $('#elevator-fill').style.height = '0px';
+                            $('#depot-fill').style.height = '0px';
+                            $('#btn-ele').innerText = 'Lvl 1';
+                            $('#btn-wh').innerText = 'Lvl 1';
+
+                            // APPLY
+                            this.worldId = idx;
+                            this.prestigeMult = w.mult;
+                            this.applyWorldVisuals(idx);
+                            if (this.weather) this.weather.setTheme(idx);
+
+                            // RESTART
+                            this.buyShaft(); // Start with 1 shaft
+                            this.saveGame();
+                            this.closeModal();
+
+                            // Show Effect
+                            this.showWelcomeBack(0, 0); // Reuse popup for "Welcome to New World"
+                            const p = document.querySelector('.welcome-popup');
+                            if (p) {
+                                p.querySelector('h2').innerText = '🚀 New World!';
+                                p.querySelector('p').innerText = `Welcome to ${w.name}!`;
+                                p.querySelector('.welcome-earnings').innerText = `x${w.mult} Earnings`;
+                            }
+                            this.audio.playSFX('newWorld');
                         }
-                        const whVisual = $('.warehouse-visual');
-                        if (whVisual) {
-                            whVisual.querySelectorAll('.manager-slot, .light-source, .warehouse-window-glow').forEach(el => el.remove());
-                        }
-                        const whFront = $('.warehouse-front');
-                        if (whFront) {
-                            whFront.querySelectorAll('.manager-slot').forEach(el => el.remove());
-                        }
-                        // Clear transporters from surface
-                        const surface = $('#surface-angels-layer');
-                        if (surface) surface.innerHTML = '';
-
-                        this.elevator = new Elevator();
-                        this.warehouse = new Warehouse();
-                        // Reset upgrades visual
-                        $('#elevator-fill').style.height = '0px';
-                        $('#depot-fill').style.height = '0px';
-                        $('#btn-ele').innerText = 'Lvl 1';
-                        $('#btn-wh').innerText = 'Lvl 1';
-
-                        // APPLY
-                        this.worldId = idx;
-                        this.prestigeMult = w.mult;
-                        this.applyWorldVisuals(idx);
-                        if (this.weather) this.weather.setTheme(idx);
-
-                        // RESTART
-                        this.buyShaft(); // Start with 1 shaft
-                        this.saveGame();
-                        this.closeModal();
-
-                        // Show Effect
-                        this.showWelcomeBack(0, 0); // Reuse popup for "Welcome to New World"
-                        const p = document.querySelector('.welcome-popup');
-                        if (p) {
-                            p.querySelector('h2').innerText = '🚀 New World!';
-                            p.querySelector('p').innerText = `Welcome to ${w.name}!`;
-                            p.querySelector('.welcome-earnings').innerText = `x${w.mult} Earnings`;
-                        }
-                        this.audio.playSFX('newWorld');
-                    }
+                    });
                 } else {
                     this.audio.playSFX('error');
                 }
@@ -8358,7 +8829,7 @@
 
                     this.closeModal();
                 } else {
-                    alert("Not enough resources!");
+                    this.showToast('Not enough resources!', 'error');
                 }
             }
             createParticle(x, y) {

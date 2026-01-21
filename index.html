@@ -323,9 +323,33 @@
             -webkit-backdrop-filter: var(--glass-blur);
             box-shadow: var(--glass-shadow);
             text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             min-width: 140px;
-            transition: transform 0.1s;
         }
+
+        .prestige-pill {
+            background: linear-gradient(135deg, rgba(171, 71, 188, 0.2), rgba(106, 27, 154, 0.2));
+            border-color: rgba(224, 64, 251, 0.5) !important;
+            animation: prestige-glow 3s infinite alternate;
+        }
+
+        @keyframes prestige-glow {
+            from {
+                box-shadow: 0 0 5px rgba(224, 64, 251, 0.3);
+            }
+
+            to {
+                box-shadow: 0 0 15px rgba(224, 64, 251, 0.6);
+            }
+        }
+
+        .prestige-pill:hover {
+            transform: scale(1.08) translateY(-2px);
+            background: rgba(224, 64, 251, 0.15);
+            border-color: #E040FB !important;
+        }
+
+
 
         .currency-pill.pulse {
             animation: pillPulse 0.2s ease-out;
@@ -555,7 +579,7 @@
             border: 1px solid rgba(255, 215, 0, 0.4);
             /* Refined border */
             border-radius: 12px;
-            z-index: 6000;
+            z-index: 6000 !important;
             /* Above UI layer (5000) */
             font-family: var(--font-body);
             box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
@@ -1102,7 +1126,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.7);
-            z-index: 3000;
+            z-index: 999999 !important;
             display: none;
             justify-content: center;
             align-items: center;
@@ -1126,7 +1150,7 @@
             color: #fff;
             display: flex;
             flex-direction: column;
-            max-height: 90vh;
+            max-height: 80vh;
         }
 
         @keyframes popIn {
@@ -3136,24 +3160,24 @@
         /* MINING SPARKS */
         .mining-spark {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #FFF59D;
+            width: 5px;
+            height: 5px;
+            background: #FFF9C4;
             border-radius: 50%;
-            box-shadow: 0 0 8px #FFF176;
+            box-shadow: 0 0 12px 2px #FFD54F, 0 0 20px #FF8F00;
             z-index: 9999;
             pointer-events: none;
-            animation: sparkOut 0.4s ease-out forwards;
+            animation: sparkOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         }
 
         @keyframes sparkOut {
             0% {
-                transform: scale(1) translate(0, 0);
+                transform: scale(1.5) translate(0, 0) rotate(0deg);
                 opacity: 1;
             }
 
             100% {
-                transform: scale(0) translate(var(--sx), var(--sy));
+                transform: scale(0) translate(var(--sx), var(--sy)) rotate(360deg);
                 opacity: 0;
             }
         }
@@ -3251,10 +3275,18 @@
             height: 500px;
             z-index: 1;
             background-repeat: repeat-x;
-            background-size: 1100px 100%;
-            /* Realistic Blue Mountains - High Contrast with brown dirt */
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 400' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='far' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231565C0;stop-opacity:0.4' /%3E%3Cstop offset='100%25' style='stop-color:%231E88E5;stop-opacity:0.6' /%3E%3C/linearGradient%3E%3ClinearGradient id='mid' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%230D47A1;stop-opacity:0.7' /%3E%3Cstop offset='100%25' style='stop-color:%231565C0;stop-opacity:0.9' /%3E%3C/linearGradient%3E%3ClinearGradient id='near' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2301579B;stop-opacity:0.9' /%3E%3Cstop offset='100%25' style='stop-color:%23002f5c;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3C!-- Realistic Jagged Layers --%3E%3Cpath d='M0 400 L120 180 L250 320 L400 120 L600 350 L800 150 L1000 400 Z' fill='url(%23far)' /%3E%3Cpath d='M-50 400 L150 220 L350 380 L550 180 L750 360 L950 200 L1100 400 Z' fill='url(%23mid)' /%3E%3Cpath d='M-30 400 L180 140 L380 340 L620 100 L880 380 L1020 160 L1050 400 Z' fill='url(%23near)' /%3E%3C!-- Sharp Snow Caps --%3E%3Cpath d='M180 140 L140 200 Q180 185 220 200 Z' fill='%23E1F5FE' opacity='0.7' /%3E%3Cpath d='M620 100 L570 180 Q620 160 670 180 Z' fill='white' opacity='0.8' /%3E%3Cpath d='M1020 160 L980 220 Q1020 205 1060 220 Z' fill='%23B3E5FC' opacity='0.6' /%3E%3C/svg%3E");
+            background-size: 1400px 100%;
             filter: drop-shadow(0 -10px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        .parallax-far {
+            opacity: 0.5;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 400' preserveAspectRatio='none'%3E%3Cpath d='M0 400 L150 250 L300 350 L500 200 L700 380 L850 250 L1000 400 Z' fill='%231565C0' opacity='0.4'/%3E%3C/svg%3E");
+            background-size: 1800px 100%;
+        }
+
+        .parallax-mid {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 400' preserveAspectRatio='none'%3E%3Cpath d='M0 400 L120 180 L250 320 L400 120 L600 350 L800 150 L1000 400 Z' fill='%230D47A1' opacity='0.7' /%3E%3Cpath d='M180 140 L140 200 Q180 185 220 200 Z' fill='%23E1F5FE' opacity='0.7' /%3E%3C/svg%3E");
         }
 
         .fossil {
@@ -3995,6 +4027,127 @@
         .toast-icon {
             font-size: 1.4rem;
         }
+
+        /* STATS PANEL */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .stat-card h4 {
+            margin: 0;
+            color: #B0BEC5;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .stat-card .val {
+            font-size: 1.4rem;
+            font-weight: bold;
+            font-family: var(--font-heading);
+            color: #FFF;
+        }
+
+        .stat-card .diff {
+            font-size: 0.75rem;
+            color: #69F0AE;
+        }
+
+        .stat-card .warning {
+            color: #FF5252;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .efficiency-bar-bg {
+            background: #37474F;
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .efficiency-bar-fill {
+            height: 100%;
+            background: #00E676;
+            transition: width 0.3s;
+        }
+
+        /* MILESTONE NOTIF */
+        .milestone-overlay {
+            position: fixed;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 30000;
+            text-align: center;
+            pointer-events: none;
+            animation: milestonePop 2s forwards;
+        }
+
+        @keyframes milestonePop {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -30%) scale(0.5);
+            }
+
+            15% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+
+            80% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -70%) scale(0.8);
+            }
+        }
+
+        /* LEVEL UP FLARE */
+        .level-up-flare {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255, 235, 59, 1) 0%, rgba(255, 145, 0, 0.5) 50%, transparent 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 20000;
+            transform: translate(-50%, -50%) scale(0);
+            animation: flare-pop 0.8s cubic-bezier(0, 0.5, 0.5, 1) forwards;
+        }
+
+        @keyframes flare-pop {
+            0% {
+                transform: translate(-50%, -50%) scale(0.2);
+                opacity: 0;
+            }
+
+            20% {
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(3);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 
@@ -4015,6 +4168,7 @@
                 <div class="currency-pill" style="border-color: rgba(0,230,118,0.5);">
                     <div class="icon-supercash"></div><span id="txt-supercash" style="color: #69F0AE;">0</span>
                 </div>
+
             </div>
 
         </div>
@@ -4031,6 +4185,9 @@
             </div>
             <div class="nav-btn" onclick="game.openShop()" id="btn-shop-nav">
                 <div style="font-size:30px;">🛒</div> <span class="nav-text">SHOP</span>
+            </div>
+            <div class="nav-btn" onclick="game.openStats()" id="btn-stats-nav">
+                <div style="font-size:30px;">📊</div> <span class="nav-text">STATS</span>
             </div>
             <div class="nav-btn" onclick="game.openSettings()" id="settings-mobile-btn">
                 <div style="font-size:30px;">⚙️</div> <span class="nav-text">SETTINGS</span>
@@ -4072,7 +4229,8 @@
             <div id="game-stage">
                 <!-- Backgrounds (Full width of stage) -->
                 <div class="sky-area">
-                    <div class="mountain-layer" id="mountain-bg"></div>
+                    <div class="mountain-layer parallax-far" id="mountain-bg-far"></div>
+                    <div class="mountain-layer parallax-mid" id="mountain-bg-mid"></div>
                     <!-- Added very small, majestic eagles to the background -->
                     <div class="bird eagle" style="animation-delay: 0s; top: 40px; left: 100px;"></div>
                     <div class="bird eagle" style="animation-delay: -5s; top: 80px; left: 400px;"></div>
@@ -5235,6 +5393,7 @@
                                     const strikeX = (shaftObj.side === 'RIGHT') ? rfRect.right - 15 : rfRect.left + 15;
                                     const strikeY = rfRect.top + (rfRect.height * 0.4); // Strike slightly above middle
                                     game.spawnSparks(strikeX, strikeY, shaftObj.side);
+                                    game.discoverRelic();
                                 }
                             }
                         } else {
@@ -5558,16 +5717,12 @@
                     if (oldLevel < m.l && this.level >= m.l) {
                         // Reached Milestone
                         game.superCash += m.r;
-                        // Delayed slightly to not overlap with cost popup if any
-                        setTimeout(() => {
-                            game.createFloatText(`💎 +${m.r}`, 300, 150 + (this.id * 160)); // Approximate shaft height position
-                            game.audio.playSFX('diamond');
-                        }, 200);
+                        game.showMilestoneEffect(this.id, m.l, m.r);
 
                         // Force UI refresh for currency
                         $('#txt-supercash').innerText = game.superCash;
                         // Pulse the SuperCash UI
-                        $('.currency-pill').forEach(el => {
+                        document.querySelectorAll('.currency-pill').forEach(el => {
                             if (el.innerHTML.includes('txt-supercash')) {
                                 el.classList.remove('pulse');
                                 void el.offsetWidth;
@@ -5936,7 +6091,6 @@
                 this.time = 8; // Start at 8 AM
                 this.dayDuration = 60; // seconds for full 24h
                 this.overlay = $('#night-overlay');
-                this.sky = $('.sky-area');
                 this.sky = $('.sky-area');
                 this.currentIntensity = 0;
                 this.theme = { dayTop: '#4FC3F7', dayBot: '#B3E5FC' };
@@ -7541,6 +7695,9 @@
 
                 this.worldId = 0; // Default Coal
                 this.prestigeMult = 1;
+                this.totalMoneyEarned = 0;
+
+                this.relics = [];
                 this.elevator = new Elevator(); this.warehouse = new Warehouse();
                 this.lastTime = 0; this.loop = this.loop.bind(this);
                 this.boosts = { speed: 0, earnings: 0 }; // Init Levels (0-10)
@@ -7579,7 +7736,9 @@
                 // Parallax Scroll Listener
                 $('#world-container').addEventListener('scroll', () => {
                     const sc = $('#world-container').scrollTop;
-                    $('#mountain-bg').style.transform = `translateY(${sc * 0.3}px)`;
+                    if ($('#mountain-bg')) $('#mountain-bg').style.transform = `translateY(${sc * 0.3}px)`;
+                    if ($('#mountain-bg-far')) $('#mountain-bg-far').style.transform = `translateY(${sc * 0.15}px)`;
+                    if ($('#mountain-bg-mid')) $('#mountain-bg-mid').style.transform = `translateY(${sc * 0.35}px)`;
                 });
 
                 window.addEventListener('resize', () => this.handleResize());
@@ -7631,7 +7790,10 @@
             addMoney(amount) {
                 if (typeof amount !== 'number' || isNaN(amount)) return;
                 this.money += amount;
-                if (amount > 0 && this.missions) this.missions.onMoneyEarned(amount);
+                if (amount > 0) {
+                    this.totalMoneyEarned += amount;
+                    if (this.missions) this.missions.onMoneyEarned(amount);
+                }
             }
 
             handleResize() {
@@ -7697,9 +7859,71 @@
                     cloud.style.top = (10 + Math.random() * 60) + 'px';
                     cloud.style.left = (Math.random() * 800) + 'px';
                     cloud.style.animationDuration = (25 + Math.random() * 20) + 's';
-                    cloud.style.animationDelay = (-Math.random() * 30) + 's';
-                    sky.appendChild(cloud);
                 }
+            }
+
+            prestige() {
+                const fragGain = this.calculateCoreFragments();
+                if (fragGain <= 0) {
+                    this.showToast("Reach $1B total earnings to Prestige!", "error");
+                    return;
+                }
+
+                this.showConfirm("CORE INFUSION", `Reset current progress for ${fragGain} Core Fragments? Each fragment grants a permanent +5% earnings boost.`, "🎇").then(confirmed => {
+                    if (confirmed) {
+                        this.coreFragments += fragGain;
+                        this.prestigeMult = 1 + (this.coreFragments * 0.05);
+                        this.money = 2000;
+                        this.shafts = [];
+                        this.elevator.loadState(1);
+                        this.warehouse.loadState(1);
+                        this.saveGame();
+                        location.reload();
+                    }
+                });
+            }
+
+            createLevelUpFlare(x, y) {
+                const flare = document.createElement('div');
+                flare.className = 'level-up-flare';
+                flare.style.left = x + 'px';
+                flare.style.top = y + 'px';
+                document.body.appendChild(flare);
+                setTimeout(() => flare.remove(), 800);
+            }
+
+            calculateCoreFragments() {
+                if (this.totalMoneyEarned < 1000000000) return 0;
+                return Math.floor(Math.sqrt(this.totalMoneyEarned / 1000000000));
+            }
+
+            discoverRelic() {
+                if (Math.random() > 0.002) return; // 0.2% chance
+                const relicTypes = [
+                    { name: 'Ancient Cog', boost: 'speed', val: 0.05, icon: '⚙️' },
+                    { name: 'Golden Nut', boost: 'earnings', val: 0.05, icon: '🥜' },
+                    { name: 'Crystal Drill', boost: 'mineRate', val: 0.1, icon: '💎' }
+                ];
+                const relic = relicTypes[Math.floor(Math.random() * relicTypes.length)];
+                this.relics.push(relic);
+                this.showRelicDiscovery(relic);
+                this.saveGame();
+            }
+
+            showRelicDiscovery(relic) {
+                const overlay = document.createElement('div');
+                overlay.className = 'mission-complete-overlay anim-mission-pop';
+                overlay.style.backgroundColor = 'rgba(74, 20, 140, 0.9)';
+                overlay.innerHTML = `
+                    <div class="mission-complete-inner" style="border-color:#E040FB">
+                        <div style="font-size:50px; margin-bottom:10px;">${relic.icon}</div>
+                        <div style="font-size:18px; color:#EA80FC;">CORE RELIC FOUND!</div>
+                        <div style="font-size:24px; color:#FFF; font-weight:bold;">${relic.name}</div>
+                        <div style="margin-top:10px; color:#B0BEC5;">+${(relic.val * 100).toFixed(0)}% ${relic.boost} (Permanent)</div>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+                setTimeout(() => overlay.remove(), 4000);
             }
             saveGame() {
                 this.lastSaveTime = Date.now();
@@ -7709,6 +7933,9 @@
                         superCash: this.superCash,
                         worldId: this.worldId,
                         prestigeMult: this.prestigeMult,
+                        totalMoneyEarned: this.totalMoneyEarned,
+                        coreFragments: this.coreFragments,
+                        relics: this.relics,
                         eleLvl: this.elevator.level,
                         whLvl: this.warehouse.level,
                         shafts: this.shafts.map(s => ({ level: s.level, side: s.side, manager: s.manager ? { type: s.manager.type, state: s.manager.state, timer: s.manager.timer } : null })),
@@ -7737,11 +7964,13 @@
                         if (this.boosts.earnings === false) this.boosts.earnings = 0;
                         if (data.research) this.research.loadState(data.research); // LOAD RESEARCH
                         this.prestigeMult = data.prestigeMult || 1;
+                        this.totalMoneyEarned = data.totalMoneyEarned || 0;
+                        this.coreFragments = data.coreFragments || 0;
+                        this.relics = data.relics || [];
 
                         this.applyWorldVisuals(this.worldId);
                         this.elevator.loadState(data.eleLvl || 1);
                         this.warehouse.loadState(data.whLvl || 1);
-                        this.elevator.loadState(data.eleLvl || 1);
                         if (data.eleMgr) {
                             this.elevator.assignManager(data.eleMgr.type);
                             // Restore state
@@ -7900,9 +8129,140 @@
                     spark.style.top = screenY + 'px';
 
                     document.body.appendChild(spark);
-                    setTimeout(() => spark.remove(), 400);
+                    setTimeout(() => spark.remove(), 500);
                 }
             }
+            openStats() {
+                this.modalMode = 'stats';
+                $('#modal-overlay').style.display = 'flex';
+                // Hide Mission Widget to prevent overlap
+                const mw = document.querySelector('.mission-widget');
+                if (mw) mw.style.display = 'none';
+                this.renderStats();
+            }
+
+            showMilestoneEffect(shaftIdx, level, reward) {
+                const s = this.shafts[shaftIdx];
+                const overlay = document.createElement('div');
+                overlay.className = 'milestone-overlay';
+                overlay.innerHTML = `
+                    <div style="font-size:20px; color:#FFD54F; font-weight:bold; text-shadow:0 2px 10px rgba(0,0,0,0.5);">MILESTONE REACHED!</div>
+                    <div style="font-size:48px; color:#FFF; font-weight:900; -webkit-text-stroke: 1px #FFD54F;">LEVEL ${level}</div>
+                    <div style="font-size:24px; color:#69F0AE; margin-top:5px;">REWARD: 💎 ${reward}</div>
+                    <div style="color:#B0BEC5; font-size:14px; margin-top:5px;">Shaft ${shaftIdx + 1} efficiency increased!</div>
+                `;
+                document.body.appendChild(overlay);
+                setTimeout(() => overlay.remove(), 2000);
+
+                // Blast of particles at center
+                for (let i = 0; i < 15; i++) {
+                    setTimeout(() => {
+                        this.spawnSparks(window.innerWidth / 2 + (Math.random() - 0.5) * 200, window.innerHeight / 2 + (Math.random() - 0.5) * 200, 'NONE');
+                    }, i * 20);
+                }
+                this.audio.playSFX('diamond');
+            }
+
+            renderStats() {
+                if (this.modalMode !== 'stats') return;
+                $('#popup-title').innerText = '📊 Global Overview';
+                const stats = this.getCalculatedStats();
+
+                let html = `<div class="stats-grid">`;
+
+                // 1. Total Extraction vs Elevator vs Warehouse
+                const mineEff = Math.min(100, (stats.elePerSec / stats.minePerSec) * 100) || 0;
+                const whEff = Math.min(100, (stats.whPerSec / stats.elePerSec) * 100) || 100;
+
+                html += `
+                    <div class="stat-card">
+                        <h4>Total Mining Output</h4>
+                        <div class="val">$${fmt(stats.minePerSec)}/s</div>
+                        <div class="diff">Cumulative power of all shafts</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Elevator Transport</h4>
+                        <div class="val">$${fmt(stats.elePerSec)}/s</div>
+                        <div class="efficiency-bar-bg"><div class="efficiency-bar-fill" style="width:${mineEff}%"></div></div>
+                        <div class="${mineEff < 90 ? 'warning' : 'diff'}">${mineEff < 90 ? '⚠️ BOTTLENECK: Shove more into the lift!' : 'Efficiency: ' + mineEff.toFixed(0) + '%'}</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Warehouse Logistics</h4>
+                        <div class="val">$${fmt(stats.whPerSec)}/s</div>
+                        <div class="efficiency-bar-bg"><div class="efficiency-bar-fill" style="width:${whEff}%"></div></div>
+                        <div class="${whEff < 90 ? 'warning' : 'diff'}">${whEff < 90 ? '⚠️ BOTTLENECK: Need more carts!' : 'Efficiency: ' + whEff.toFixed(0) + '%'}</div>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Net Income</h4>
+                        <div class="val" style="color:#FFD54F">$${fmt(Math.min(stats.minePerSec, stats.elePerSec, stats.whPerSec))}/s</div>
+                        <div class="diff">Actual profit hitting your bank</div>
+                    </div>
+                `;
+
+                html += `</div>`;
+
+                // Shaft Details
+                html += `<h4 style="margin-top:20px; color:#B0BEC5; padding-bottom:5px; border-bottom:1px solid rgba(255,255,255,0.1);">SHAFT PERFORMANCE</h4>`;
+                html += `<div style="display:flex; flex-direction:column; gap:8px; margin-top:10px;">`;
+                this.shafts.forEach((s, i) => {
+                    const sPPS = stats.shafts[i];
+                    html += `
+                        <div style="display:flex; justify-content:space-between; align-items:center; padding:10px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.05); border-radius:8px;">
+                            <div style="display:flex; flex-direction:column;">
+                                <span style="font-weight:bold; color:#FFF;">Shaft ${i + 1}</span>
+                                <span style="font-size:0.8rem; color:#90A4AE;">Level ${s.level}</span>
+                            </div>
+                            <span style="color:#FFF176; font-family:var(--font-heading); font-size:1.1rem;">$${fmt(sPPS)}/s</span>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+
+                $('#popup-stats').innerHTML = html;
+                $('#popup-buy-btn').style.display = 'none';
+            }
+
+            getCalculatedStats() {
+                let shaftPPS = this.shafts.map(s => {
+                    // Extract PPS from text or recalculate (we'll recalculate for safety)
+                    const dist = 400;
+                    let totalPPS = 0;
+                    let mMult = s.manager ? s.manager.getSpeedMult() : 1;
+                    s.miners.forEach(m => {
+                        const speed = m.stats.speed * mMult;
+                        const walkTime = (dist / speed) * 2;
+                        const mineTime = m.stats.capacity / m.stats.mineRate;
+                        totalPPS += (m.stats.capacity / (walkTime + mineTime));
+                    });
+                    return totalPPS;
+                });
+
+                let totalMinePPS = shaftPPS.reduce((a, b) => a + b, 0);
+
+                // Elevator Stats
+                let e = this.elevator;
+                let mMultE = e.manager ? e.manager.getSpeedMult() : 1;
+                let effCapE = e.cap * mMultE;
+                let bottom = Math.ceil(this.shafts.length / 2) * (CFG.shaftH + CFG.shaftGap);
+                let travelTimeE = (bottom / e.speed) * 2;
+                // Simplified: average load rate doesn't bottleneck if speed is okay, but travel does.
+                let elePPS = effCapE / (travelTimeE + (this.shafts.length * 0.5)); // +0.5s avg loading delay per shaft
+
+                // Warehouse Stats
+                let w = this.warehouse;
+                let totalWhCap = w.transporters.reduce((sum, t) => sum + t.cap, 0);
+                let avgSpeedW = w.transporters[0].speed;
+                let travelTimeW = (410 / avgSpeedW) * 2; // Home 1210 to Elev 800
+                let whPPS = totalWhCap / (travelTimeW + 2); // +2s for load/unload cycles
+
+                return {
+                    minePerSec: totalMinePPS,
+                    elePerSec: elePPS,
+                    whPerSec: whPPS,
+                    shafts: shaftPPS
+                };
+            }
+
             // Helper to update text
             updateNextShaftCostText() {
                 let cost = Math.floor(CFG.baseCostShaft * Math.pow(4, this.shafts.length));
@@ -8163,6 +8523,9 @@
                     this.audio.exitShop(); // Exit exclusive mode
                 }
                 this.modalMode = null;
+                // Restore Mission Widget
+                const mw = document.querySelector('.mission-widget');
+                if (mw) mw.style.display = 'block';
             }
 
             startAutoBuy() {
@@ -8216,6 +8579,7 @@
                 }
 
                 if (success) {
+                    this.createLevelUpFlare(window.innerWidth / 2, window.innerHeight / 2);
                     // Optimized UI Update
                     if (document.getElementById('modal-overlay').style.display !== 'none') {
                         this.updateModalUI();
@@ -8323,6 +8687,10 @@
             }
 
             renderModal() {
+                if (this.modalMode === 'stats') {
+                    this.renderStats();
+                    return;
+                }
                 if (this.modalMode === 'shop') {
                     $('#popup-title').innerText = '🛒 Shop';
                     $('#popup-stats').innerHTML = `
@@ -8915,8 +9283,12 @@
                 $('#txt-cash').innerText = fmt(this.money);
                 $('#txt-supercash').innerText = this.superCash;
 
+
                 // UI Feedback
                 this.updateButtons();
+                if (document.getElementById('modal-overlay').style.display !== 'none' && this.modalMode === 'stats') {
+                    this.renderStats();
+                }
 
                 requestAnimationFrame(this.loop);
             }
@@ -8980,32 +9352,7 @@
         updateMobileScaling();
 
     </script>
-    <script type="text/javascript">
-        window.SDK_OPTIONS = {
-            gameId: "jxqbjaj9st5m8o95ibirxkbw71o2vifi",
-            onEvent: function (a) {
-                switch (a.name) {
-                    case "SDK_GAME_PAUSE":
-                        // pause game logic / mute audio
-                        break;
-                    case "SDK_GAME_START":
-                        // advertisement done, resume game logic and unmute audio
-                        break;
-                    case "SDK_READY":
-                        // when sdk is ready
-                        break;
-                }
-            }
-        };
-        (function (a, b, c) {
-            var d = a.getElementsByTagName(b)[0];
-            a.getElementById(c) || (a = a.createElement(b), a.id = c, a.src = "https://api.gamemonetize.com/sdk.js", d.parentNode.insertBefore(a, d))
-        })(document, "script", "gamemonetize-sdk");
 
-        if (typeof sdk !== 'undefined' && sdk.showBanner !== 'undefined') {
-            sdk.showBanner();
-        }
-    </script>
 
 </body>
 
